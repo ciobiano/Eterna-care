@@ -1,4 +1,4 @@
-import type { Config } from "tailwindcss"
+import type { Config } from "tailwindcss";
 
 const config = {
 	darkMode: ["class"],
@@ -71,14 +71,51 @@ const config = {
 					from: { height: "var(--radix-accordion-content-height)" },
 					to: { height: "0" },
 				},
+				bounce: {
+					"0%": {
+						opacity: "0",
+						transform: "translateY(-35px)",
+						animationTimingFunction: "ease-in",
+					},
+					"24%": { opacity: "1" },
+					"40%": {
+						transform: "translateY(-24px)",
+						animationTimingFunction: "ease-in",
+					},
+					"65%": {
+						transform: "translateY(-12px)",
+						animationTimingFunction: "ease-in",
+					},
+					"82%": {
+						transform: "translateY(-6px)",
+						animationTimingFunction: "ease-in",
+					},
+					"93%": {
+						transform: "translateY(-4px)",
+						animationTimingFunction: "ease-out",
+					},
+					"25%, 55%, 75%, 87%, 96%, 99%": {
+						transform: "translateY(-0.75px)",
+						animationTimingFunction: "ease-out",
+					},
+
+					"100%": {
+						opacity: "1",
+
+						transform: "translateY(-0.80px)",
+						animationTimingFunction: "ease-out ",
+					},
+				},
 			},
 			animation: {
 				"accordion-down": "accordion-down 0.2s ease-out",
 				"accordion-up": "accordion-up 0.2s ease-out",
+				"bounce-custom":
+					"bounce 4s linear 0s 1 normal forwards ",
 			},
 		},
 	},
 	plugins: [require("tailwindcss-animate")],
 } satisfies Config;
 
-export default config
+export default config;
