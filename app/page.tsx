@@ -1,15 +1,17 @@
 "use client";
 
-import { background, notification1 } from "@/assets";
+import { background, notification1, notification2 } from "@/assets";
 import Heading from "@/components/heading";
 import NavBar from "@/components/NavBar/nav";
 import Notification from "@/components/notification";
 import { Button } from "@/components/ui/button";
 import ImageGallery from "@/components/imageGallery";
 import SearchBox from "../components/NavBar/searchBox";
-import  Image  from 'next/image';
+import Image from "next/image";
+import FeedBack from "@/components/feedback";
 
 export default function Home() {
+	
 	return (
 		<div className="grid custom-grid grid-flow-col gap-0 h-screen  ">
 			<div className="flex flex-col bg-theme items-start top-0 px-14  ">
@@ -30,7 +32,8 @@ export default function Home() {
 					description="You have a donation request from John Doe"
 					imgUrl={notification1.src}
 					className="hidden  absolute left-[40.5em] bottom-[8rem] backdrop-blur  w-[18rem] xl:flex xl:left-[50em] animate-bounce-custom
-					xl:bottom-[14rem]
+					lg:bottom-6
+					xl:bottom-[16.5rem]
 					 "
 				/>
 				<ImageGallery />
@@ -44,19 +47,23 @@ export default function Home() {
 				<Notification
 					title="How can you give a DNA test?"
 					description="You have a donation request from John Doe"
-					imgUrl={notification1.src} 
+					imgUrl={notification2.src}
 					className="hidden  absolute  backdrop-blur  w-[18rem] xl:flex xl:top-20 -ml-10 animate-bounce-custom
 					
 					 "
 				/>
-				<Image
-				src={background.src}
-				alt="background image"
-				width={300}
-				height={300}
-				className="flex items-center justify-center"
-				
-				/>
+				<div className="flex items-center mt-28 justify-center">
+					<Image
+						src={background.src}
+						alt="background image"
+						width={360}
+						height={360}
+						quality={100}
+					/>
+				</div>
+				<div className="absolute top-[29rem] right-10  ">
+					<FeedBack />
+				</div>
 
 				{/* Add other content here */}
 			</div>

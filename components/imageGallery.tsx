@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
-import { gallery1, gallery2, gallery3 } from "@/assets";
+import { gallery1, gallery2, gallery3, gallery4 } from "@/assets";
 import Image from "next/image";
 
 interface ImageProps {
@@ -24,7 +24,7 @@ const ImageGallery: React.FC = () => {
 			alt: "Image Description 3",
 		},
 		{
-			src: gallery3.src,
+			src: gallery4.src,
 			alt: "Image Description 3",
 		},
 	];
