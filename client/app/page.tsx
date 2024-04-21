@@ -61,7 +61,7 @@ export default function Home() {
 						quality={100}
 					/>
 				</div>
-				<div className="absolute top-[29rem] right-10  ">
+				<div className="absolute top-[33rem] right-10  ">
 					<FeedBack />
 				</div>
 

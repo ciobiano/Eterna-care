@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { notification3, notification4, notification5 } from "@/assets";
+import { ArrowDownRight } from "lucide-react";
 
 const FeedBack = () => {
 	const notificationImages = [notification4, notification3, notification5];
@@ -35,9 +36,11 @@ const FeedBack = () => {
 								/>
 							</li>
 						))}
+						<div className="flex items-center justify-center text-xs ">+9</div>
 					</ul>
-
-					<div className="flex items-center justify-center ">+9</div>
+					<div className="absolute items-center justify-center border-2 rounded-full h-6 w-6 border-n-12 right-5 mt-2 ">
+						<ArrowDownRight className=" absolute h-4 w-4 items-center justify-center text-n-12 m-[0.15rem]" />
+					</div>
 				</div>
 			</div>
 		</div>
