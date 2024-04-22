@@ -33,7 +33,8 @@ const config = {
 					foreground: "hsl(var(--secondary-foreground))",
 				},
 				destructive: {
-					DEFAULT: "hsl(var(--destructive))",
+					DEFAULT: "#D51D12",
+					secondary: "#EF4A32",
 					foreground: "hsl(var(--destructive-foreground))",
 				},
 				muted: {
@@ -110,8 +111,7 @@ const config = {
 			animation: {
 				"accordion-down": "accordion-down 0.2s ease-out",
 				"accordion-up": "accordion-up 0.2s ease-out",
-				"bounce-custom":
-					"bounce 4s linear 0s 1 normal forwards ",
+				"bounce-custom": "bounce 4s linear 0s 1 normal forwards ",
 			},
 		},
 	},
