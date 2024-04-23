@@ -11,8 +11,8 @@ import { Button } from "@/components/ui/button";
 export function RegisterPage() {
 	const [type, setType] = useState("Donor");
 
-	const handleTypeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setType(e.target.value);
+	const handleTypeChange = (value: string) => {
+		setType(value);
 	};
 
 	return (
@@ -24,20 +24,19 @@ export function RegisterPage() {
 					</CardTitle>
 				</CardHeader>
 
+				<RadioGroup
+					value={type}
+					onValueChange={handleTypeChange}
+					className="flex w-full justify-center items-center col-span-2 my-4 space-x-4"
+				>
+					{["Donor", "Hospital", "Organization"].map((option) => (
+						<div key={option} className="flex items-center space-x-2">
+							<RadioGroupItem value={option} id={`radio-${option}`} />
+							<Label htmlFor={`radio-${option}`}>{option}</Label>
+						</div>
+					))}
+				</RadioGroup>
 				<CardContent>
-					<RadioGroup
-						value={type}
-						onChange={handleTypeChange}
-						className="flex w-full justify-center items-center col-span-2 my-4 space-x-4"
-					>
-						{["Donor", "Hospital", "Organization"].map((option) => (
-							<div key={option} className="flex items-center space-x-2">
-								<RadioGroupItem value={option} id={`radio-${option}`} />
-								<Label htmlFor={`radio-${option}`}>{option}</Label>
-							</div>
-						))}
-					</RadioGroup>
-
 					{type === "Donor" && (
 						<div className="grid gap-4">
 							<div className="grid grid-cols-2 gap-4">
