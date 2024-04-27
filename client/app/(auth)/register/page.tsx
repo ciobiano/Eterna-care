@@ -7,6 +7,8 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import CustomForm from "./customForm";
+import  Heading from '@/components/heading';
 
 export function RegisterPage() {
 	const [type, setType] = useState("Donor");
@@ -16,86 +18,103 @@ export function RegisterPage() {
 	};
 
 	return (
-		<div className="flex flex-col items-center justify-center h-full">
-			<Card className="mx-auto max-w-xl">
-				<CardHeader className="flex w-full items-center justify-center">
-					<CardTitle className="text-xl">
-						{type.toUpperCase()} - REGISTRATION
-					</CardTitle>
-				</CardHeader>
+		<div className="grid grid-flow-col gap-0 h-screen">
+			<div className="bg-theme flex flex-col mt-20">
+				<Card className="mx-auto max-w-[50rem] min-w-[40rem] ">
+					<CardHeader className="flex w-full items-center justify-center">
+						<CardTitle className="text-xl">
+							{type.toUpperCase()} - REGISTRATION
+						</CardTitle>
+					</CardHeader>
 
-				<RadioGroup
-					value={type}
-					onValueChange={handleTypeChange}
-					className="flex w-full justify-center items-center col-span-2 my-4 space-x-4"
-				>
-					{["Donor", "Hospital", "Organization"].map((option) => (
-						<div key={option} className="flex items-center space-x-2">
-							<RadioGroupItem value={option} id={`radio-${option}`} />
-							<Label htmlFor={`radio-${option}`}>{option}</Label>
-						</div>
-					))}
-				</RadioGroup>
-				<CardContent>
-					{type === "Donor" && (
-						<div className="grid gap-4">
-							<div className="grid grid-cols-2 gap-4">
+					<RadioGroup
+						value={type}
+						onValueChange={handleTypeChange}
+						className="flex w-full justify-center items-center col-span-2 my-4 space-x-4"
+					>
+						{["Donor", "Hospital", "Organization"].map((option) => (
+							<div key={option} className="flex items-center space-x-2">
+								<RadioGroupItem value={option} id={`radio-${option}`} />
+								<Label htmlFor={`radio-${option}`}>{option}</Label>
+							</div>
+						))}
+					</RadioGroup>
+					<CardContent>
+						{type === "Donor" && (
+							<div className="grid gap-4">
+								<div className="grid grid-cols-2 gap-4">
+									<div className="grid gap-2">
+										<Label htmlFor="first-name">First name</Label>
+										<Input
+											id="first-name"
+											name="firstName"
+											placeholder="Max"
+											required
+										/>
+									</div>
+									<div className="grid gap-2">
+										<Label htmlFor="last-name">Last name</Label>
+										<Input
+											id="last-name"
+											name="lastName"
+											placeholder="Robinson"
+											required
+										/>
+									</div>
+								</div>
 								<div className="grid gap-2">
-									<Label htmlFor="first-name">First name</Label>
+									<Label htmlFor="email">Email</Label>
 									<Input
-										id="first-name"
-										name="firstName"
-										placeholder="Max"
+										id="email"
+										name="email"
+										type="email"
+										placeholder="m@example.com"
 										required
 									/>
 								</div>
 								<div className="grid gap-2">
-									<Label htmlFor="last-name">Last name</Label>
+									<Label htmlFor="phone">Phone</Label>
 									<Input
-										id="last-name"
-										name="lastName"
-										placeholder="Robinson"
+										id="phone"
+										name="phone"
+										type="tel"
+										placeholder="+1 234 567 8910"
+									/>
+								</div>
+								<div className="grid gap-2">
+									<Label htmlFor="password">Password</Label>
+									<Input
+										id="password"
+										name="password"
+										type="password"
 										required
 									/>
 								</div>
+								<Button variant="destructive" type="submit" className="w-full">
+									Create an account
+								</Button>
 							</div>
-							<div className="grid gap-2">
-								<Label htmlFor="email">Email</Label>
-								<Input
-									id="email"
-									name="email"
-									type="email"
-									placeholder="m@example.com"
-									required
-								/>
-							</div>
-							<div className="grid gap-2">
-								<Label htmlFor="phone">Phone</Label>
-								<Input
-									id="phone"
-									name="phone"
-									type="tel"
-									placeholder="+1 234 567 8910"
-								/>
-							</div>
-							<div className="grid gap-2">
-								<Label htmlFor="password">Password</Label>
-								<Input id="password" name="password" type="password" required />
-							</div>
-							<Button variant="destructive" type="submit" className="w-full">
-								Create an account
-							</Button>
-						</div>
-					)}
+						)}
 
-					<div className="mt-4 text-center text-sm">
-						Already have an account?{" "}
-						<Link href="/login" className="underline">
-							Sign in
-						</Link>
-					</div>
-				</CardContent>
-			</Card>
+						{type !== "Donor" && <CustomForm type={type} />}
+
+						<div className="mt-4 text-center text-sm">
+							Already have an account?{" "}
+							<Link href="/login" className="underline">
+								Sign in
+							</Link>
+						</div>
+					</CardContent>
+				</Card>
+			</div>
+			<div className="bg-theme-foreground items-center justify-center flex flex-col text-">
+				<Heading
+					subtitle="Be a hero."
+					title=" A few clicks can make a world of difference"
+					spanText="Sign up now !"
+
+				/>
+			</div>
 		</div>
 	);
 }
