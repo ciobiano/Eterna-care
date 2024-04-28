@@ -5,4 +5,10 @@ require("dotenv").config();
 
 const dbConfig = require("./config/dbConfig");
 
+app.use(express.json());
+
+const userRoute = require("./routes/usersRoute");
+
+app.use("/api/users", userRoute);
+
 app.listen(port, () => console.log(`Server is running on port ${port}`));
