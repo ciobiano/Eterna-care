@@ -9,7 +9,7 @@ router.post("/register", async (req, res) => {
 	try {
 		//check if user already exists
 
-		const userExists = await user.findOne({ email: req.body.email });
+		const userExists = await User.findOne({ email: req.body.email });
 		if (userExists) {
 			return res.send({
 				success: false,
@@ -21,7 +21,7 @@ router.post("/register", async (req, res) => {
 
 		const salt = await bcrypt.genSalt(10);
 		const hashedPassword = await bcrypt.hash(req.body.password, salt);
-		res.body.password = hashedPassword;
+		req.body.password = hashedPassword;
 
 		//save user
 		const user = new User(req.body);
@@ -67,7 +67,6 @@ router.post("/login", async (req, res) => {
 			expiresIn: "1h",
 		});
 
-    
 		return res.send({
 			success: true,
 			message: "User logged in successfully",
@@ -80,6 +79,5 @@ router.post("/login", async (req, res) => {
 		});
 	}
 });
-
 
 module.exports = router;

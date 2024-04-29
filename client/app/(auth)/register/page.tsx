@@ -1,118 +1,276 @@
 "use client";
-
-import { useState } from "react";
-import Link from "next/link";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Label } from "@/components/ui/label";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+	Form,
+	FormControl,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import Heading from "@/components/heading";
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import CustomForm from "./customForm";
-import  Heading from '@/components/heading';
+
+const formSchema = z
+	.object({
+		name: z.string(),
+		email: z.string().email(),
+		userType: z.enum(["donor", "hospital", "organization", "admin"]),
+		HospitalName: z.string().optional(),
+		OrganizationName: z.string().optional(),
+		phoneNumber: z.string(),
+		website: z.string().optional(),
+		password: z.string().min(3),
+		address: z.string().min(5),
+	})
+	.refine(
+		(data) => {
+			if (data.userType === "donor" || data.userType === "admin") {
+				return !!data.name;
+			}
+			return true;
+		},
+		{
+			message: "name number is required",
+			path: ["name"],
+		}
+	)
+	.refine(
+		(data) => {
+			if (data.userType === "hospital") {
+				return !!data.HospitalName;
+			}
+			return true;
+		},
+		{
+			message: "Hospital name is required",
+			path: ["hospitalName"],
+		}
+	)
+	.refine(
+		(data) => {
+			if (data.userType === "organization") {
+				return !!data.OrganizationName;
+			}
+			return true;
+		},
+		{
+			message: "Organization name is required",
+			path: ["organizationName"],
+		}
+	)
+
+	.refine(
+		(data) => {
+			if (data.userType === "hospital" || data.userType === "organization") {
+				return !!data.website;
+			}
+			return true;
+		},
+		{
+			message: "Website is required ",
+			path: ["website"],
+		}
+	);
 
 export function RegisterPage() {
-	const [type, setType] = useState("Donor");
+	const form = useForm<z.infer<typeof formSchema>>({
+		resolver: zodResolver(formSchema),
+		defaultValues: {
+			name: "",
+			email: "",
+			userType: "donor",
+			HospitalName: "",
+			OrganizationName: "",
+			phoneNumber: "",
+			website: "",
+			address: "",
+			password: "",
+		},
+	});
 
-	const handleTypeChange = (value: string) => {
-		setType(value);
+	const userType = form.watch("userType");
+
+	const handleSubmit = (values: z.infer<typeof formSchema>) => {
+		console.log({ values });
 	};
-
 	return (
 		<div className="grid grid-flow-col gap-0 h-screen">
-			<div className="bg-theme flex flex-col mt-20">
-				<Card className="mx-auto max-w-[50rem] min-w-[40rem] ">
-					<CardHeader className="flex w-full items-center justify-center">
-						<CardTitle className="text-xl">
-							{type.toUpperCase()} - REGISTRATION
-						</CardTitle>
-					</CardHeader>
+			<main className="flex min-h-screen min-w-lg flex-col items-center justify-between p-24">
+				<Form {...form}>
+					<form className="max-w-md w-full flex flex-col gap-4">
+						<FormField
+							control={form.control}
+							name="email"
+							render={({ field }) => {
+								return (
+									<FormItem>
+										<FormLabel>Email address</FormLabel>
+										<FormControl>
+											<Input
+												placeholder="Email address"
+												type="email"
+												{...field}
+											/>
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								);
+							}}
+						/>
+						<FormField
+							control={form.control}
+							name="userType"
+							render={({ field }) => {
+								return (
+									<FormItem>
+										<FormLabel>Account type</FormLabel>
+										<Select onValueChange={field.onChange}>
+											<FormControl>
+												<SelectTrigger>
+													<SelectValue placeholder="Select an account type" />
+												</SelectTrigger>
+											</FormControl>
+											<SelectContent>
+												<SelectItem value="donor">Donor</SelectItem>
+												<SelectItem value="hospital">Hospital</SelectItem>
+												<SelectItem value="organization">
+													Organization
+												</SelectItem>
+												<SelectItem value="admin">Admin</SelectItem>
+											</SelectContent>
+										</Select>
+										<FormMessage />
+									</FormItem>
+								);
+							}}
+						/>
+						{userType === "donor" || userType === "admin" ? (
+							<FormField
+								control={form.control}
+								name="name"
+								render={({ field }) => {
+									return (
+										<FormItem>
+											<FormLabel>Name</FormLabel>
+											<FormControl>
+												<Input placeholder="Name" {...field} />
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									);
+								}}
+							/>
+						) : null}
+						{userType === "hospital" ? (
+							<FormField
+								control={form.control}
+								name="HospitalName"
+								render={({ field }) => {
+									return (
+										<FormItem>
+											<FormLabel>Hospital Name</FormLabel>
+											<FormControl>
+												<Input placeholder="Hospital Name" {...field} />
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									);
+								}}
+							/>
+						) : null}
+						{userType === "organization" ? (
+							<FormField
+								control={form.control}
+								name="OrganizationName"
+								render={({ field }) => {
+									return (
+										<FormItem>
+											<FormLabel>Organization Name</FormLabel>
+											<FormControl>
+												<Input placeholder="Organization Name" {...field} />
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									);
+								}}
+							/>
+						) : null}
+						{userType === "hospital" || userType === "organization" ? (
+							<FormField
+								control={form.control}
+								name="website"
+								render={({ field }) => {
+									return (
+										<>
+											<FormItem>
+												<FormLabel>Address</FormLabel>
+												<FormControl>
+													<Input placeholder="Address" {...field} />
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										</>
+									);
+								}}
+							/>
+						) : null}
 
-					<RadioGroup
-						value={type}
-						onValueChange={handleTypeChange}
-						className="flex w-full justify-center items-center col-span-2 my-4 space-x-4"
-					>
-						{["Donor", "Hospital", "Organization"].map((option) => (
-							<div key={option} className="flex items-center space-x-2">
-								<RadioGroupItem value={option} id={`radio-${option}`} />
-								<Label htmlFor={`radio-${option}`}>{option}</Label>
-							</div>
-						))}
-					</RadioGroup>
-					<CardContent>
-						{type === "Donor" && (
-							<div className="grid gap-4">
-								<div className="grid grid-cols-2 gap-4">
-									<div className="grid gap-2">
-										<Label htmlFor="first-name">First name</Label>
-										<Input
-											id="first-name"
-											name="firstName"
-											placeholder="Max"
-											required
-										/>
-									</div>
-									<div className="grid gap-2">
-										<Label htmlFor="last-name">Last name</Label>
-										<Input
-											id="last-name"
-											name="lastName"
-											placeholder="Robinson"
-											required
-										/>
-									</div>
-								</div>
-								<div className="grid gap-2">
-									<Label htmlFor="email">Email</Label>
-									<Input
-										id="email"
-										name="email"
-										type="email"
-										placeholder="m@example.com"
-										required
-									/>
-								</div>
-								<div className="grid gap-2">
-									<Label htmlFor="phone">Phone</Label>
-									<Input
-										id="phone"
-										name="phone"
-										type="tel"
-										placeholder="+1 234 567 8910"
-									/>
-								</div>
-								<div className="grid gap-2">
-									<Label htmlFor="password">Password</Label>
-									<Input
-										id="password"
-										name="password"
-										type="password"
-										required
-									/>
-								</div>
-								<Button variant="destructive" type="submit" className="w-full">
-									Create an account
-								</Button>
-							</div>
-						)}
-
-						{type !== "Donor" && <CustomForm type={type} />}
-
-						<div className="mt-4 text-center text-sm">
-							Already have an account?{" "}
-							<Link href="/login" className="underline">
-								Sign in
-							</Link>
-						</div>
-					</CardContent>
-				</Card>
-			</div>
+						<FormField
+							control={form.control}
+							name="phoneNumber"
+							render={({ field }) => {
+								return (
+									<FormItem>
+										<FormLabel>Phone number</FormLabel>
+										<FormControl>
+											<Input placeholder="Phone number" {...field} />
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								);
+							}}
+						/>
+						<FormField
+							control={form.control}
+							name="password"
+							render={({ field }) => {
+								return (
+									<FormItem>
+										<FormLabel>Password</FormLabel>
+										<FormControl>
+											<Input
+												placeholder="Password"
+												type="password"
+												{...field}
+											/>
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								);
+							}}
+						/>
+						<Button type="submit" className="w-full">
+							Submit
+						</Button>
+					</form>
+				</Form>
+			</main>
 			<div className="bg-theme-foreground items-center justify-center flex flex-col text-">
 				<Heading
 					subtitle="Be a hero."
 					title=" A few clicks can make a world of difference"
 					spanText="Sign up now !"
-
 				/>
 			</div>
 		</div>

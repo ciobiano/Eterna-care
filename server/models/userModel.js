@@ -5,7 +5,7 @@ const userSchema = new mongoose.Schema({
 	userType: {
 		type: String,
 		required: true,
-		enum: ["donor", "organization", "hosiptal", "admin"],
+		enum: ["donor", "organization", "hospital", "admin"],
 	},
 
 	//only required if user is admin or donor
@@ -72,6 +72,11 @@ const userSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
-});
+},
+{
+	timestamps: true,
+}
+
+);
 
 module.exports = mongoose.model("users", userSchema);
