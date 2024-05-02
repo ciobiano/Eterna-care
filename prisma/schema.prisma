@@ -1,0 +1,37 @@
+enum Role {
+  USER // Donor
+  HOSPITAL
+  ORGANIZATION // Single Admin
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  role      Role     @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  donor    Donor?    @relation 
+  hospital Hospital? @relation 
+}
+
+model Donor {
+  id         Int     @id @default(autoincrement())
+  name       String
+  address    String
+  bloodGroup String
+  phone      String? 
+  user       User    @relation(fields: [userId], references: [id])
+  userId     Int     @unique 
+}
+
+model Hospital {
+  id      Int     @id @default(autoincrement())
+  name    String
+  address String
+  license String 
+  website String? 
+  user    User    @relation(fields: [userId], references: [id])
+  userId  Int     @unique 
+}

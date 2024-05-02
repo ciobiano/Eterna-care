@@ -1,26 +1,29 @@
 import { z } from "zod";
 
-export const RegisterSchema = z.object({
-	userType: z.enum(["donor", "hospital", "organization", "admin"]),
-	name: z
-		.string()
-		.min(2, {
-			message: "Please this must be your full name",
-		})
-		.max(255)
-		.optional(),
-	email: z.string().email({
-		message: "Invalid email address",
-	}),
 
-	hospitalName: z.string().optional(),
-	organizationName: z.string().optional(),
-	phone: z.string().trim(),
-	password: z.string().min(6, {
-		message: "Password must be at least 6 characters",
-	}),
 
-	address: z.string().min(5, {
-		message: "full address required",
-	}),
+
+export const loginSchema = z.object({
+	email: z.string().email("Please enter a valid email address"),
+	password: z.string().min(6, "Password should be at least 6 characters"),
+});
+
+export const donorSchema = z.object({
+	name: z.string().min(3, "Name should be at least 3 characters").max(50),
+	address: z.string().min(3, "Address should be at least 3 characters"),
+	phone: z.string().min(10, "Phone number should be at least 10 characters"),
+	bloodGroup: z.string().min(2).max(10),
+	email: z.string().email("Please enter a valid email address"),
+	password: z.string().min(6, "Password should be at least 6 characters").max(50),
+});
+
+
+
+export const hospitalSchema = z.object({
+	name: z.string().min(3, "Name should be at least 3 characters"),
+	address: z.string().min(3, "Address should be at least 3 characters"),
+	phone: z.string().min(10, "Phone number should be at least 10 characters"),
+	licenseNumber: z.string().min(10, "License number should be at least 10 characters"),
+	email: z.string().email("Please enter a valid email address"),
+	password: z.string().min(6, "Password should be at least 6 characters"),
 });
