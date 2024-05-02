@@ -108,7 +108,10 @@ export function RegisterPage() {
 		<div className="grid grid-flow-col gap-0 h-screen">
 			<main className="flex min-h-screen min-w-lg flex-col items-center justify-between p-24">
 				<Form {...form}>
-					<form className="max-w-md w-full flex flex-col gap-4">
+					<form
+						onSubmit={form.handleSubmit(handleSubmit)}
+						className="max-w-md w-full flex flex-col gap-4"
+					>
 						<FormField
 							control={form.control}
 							name="email"
