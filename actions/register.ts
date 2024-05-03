@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import { donorSchema, hospitalSchema } from "@/schema";
 import { z } from "zod";
 import bcrypt from "bcrypt";
+import { getUserByEmail } from "@/lib/user";
 
 export const registerDonor = async (values: z.infer<typeof donorSchema>) => {
 	const validatedFields = donorSchema.safeParse(values);
@@ -18,11 +19,7 @@ export const registerDonor = async (values: z.infer<typeof donorSchema>) => {
 		validatedFields.data;
 	const hashedPassword = await bcrypt.hash(password, 10);
 
-	const existingUser = await db.user.findUnique({
-		where: {
-			email,
-		},
-	});
+	const existingUser = await getUserByEmail(email);
 	if (existingUser) {
 		return { error: "Email already in use" };
 	}
@@ -69,11 +66,7 @@ export const registerHospital = async (
 		validatedFields.data;
 	const hashedPassword = await bcrypt.hash(password, 10);
 
-	const existingUser = await db.user.findUnique({
-		where: {
-			email,
-		},
-	});
+	const existingUser = await getUserByEmail(email);
 	if (existingUser) {
 		return { error: "Email already in use" };
 	}

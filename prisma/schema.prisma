@@ -14,14 +14,15 @@ enum Role {
 }
 
 model User {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  email     String   @unique
-  password  String
-  role      Role     @default(USER)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  donor    Donor?    @relation
-  hospital Hospital? @relation
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  email         String    @unique
+  emailVerified DateTime?
+  password      String
+  role          Role      @default(USER)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  donor         Donor?    @relation
+  hospital      Hospital? @relation
 }
 
 model Donor {
@@ -35,15 +36,15 @@ model Donor {
 }
 
 model Hospital {
-  id      String  @id @default(auto()) @map("_id") @db.ObjectId
-  name    String
-  address String
-  city    String
-  state   String
+  id            String  @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  address       String
+  city          String
+  state         String
   licenseNumber String
-  website String?
-  phone   String
-  
-  user    User    @relation(fields: [userId], references: [id])
-  userId  String  @unique @db.ObjectId
+  website       String?
+  phone         String
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @unique @db.ObjectId
 }
