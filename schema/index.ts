@@ -22,6 +22,8 @@ export const donorSchema = z.object({
 export const hospitalSchema = z.object({
 	name: z.string().min(3, "Name should be at least 3 characters"),
 	address: z.string().min(3, "Address should be at least 3 characters"),
+	city: z.string().min(3, "City should be at least 3 characters"),
+	state: z.string().min(3, "State should be at least 3 characters"),
 	phone: z.string().min(10, "Phone number should be at least 10 characters"),
 	licenseNumber: z.string().min(10, "License number should be at least 10 characters"),
 	email: z.string().email("Please enter a valid email address"),

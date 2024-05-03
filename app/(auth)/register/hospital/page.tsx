@@ -31,6 +31,8 @@ const HospitalRegForm = () => {
 			name: "",
 			email: "",
 			address: "",
+			city: "",
+			state: "",
 			phone: "",
 			password: "",
 			licenseNumber: "",
@@ -65,7 +67,7 @@ const HospitalRegForm = () => {
 		<Form {...form}>
 			<form
 				onSubmit={form.handleSubmit(onSubmit)}
-				className="max-w-md w-full flex flex-col gap-4"
+				className="max-w-xl w-full grid grid-cols-2 gap-4"
 			>
 				<FormField
 					control={form.control}
@@ -75,38 +77,9 @@ const HospitalRegForm = () => {
 							<FormItem>
 								<FormLabel> Name</FormLabel>
 								<FormControl>
-									<Input placeholder="full name" {...field} />
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						);
-					}}
-				/>
-				<FormField
-					control={form.control}
-					name="licenseNumber"
-					render={({ field }) => {
-						return (
-							<FormItem>
-								<FormLabel> License number </FormLabel>
-								<FormControl>
-									<Input placeholder="ca09VBb765Xu9900" {...field} />
-								</FormControl>
-
-								<FormMessage />
-							</FormItem>
-						);
-					}}
-				/>
-				<FormField
-					control={form.control}
-					name="address"
-					render={({ field }) => {
-						return (
-							<FormItem>
-								<FormLabel>Address</FormLabel>
-								<FormControl>
-									<Input placeholder="Address" {...field} />
+									<Input 
+									disabled={isPending}
+									placeholder="Hospital Name" {...field} />
 								</FormControl>
 								<FormMessage />
 							</FormItem>
@@ -122,8 +95,28 @@ const HospitalRegForm = () => {
 							<FormItem>
 								<FormLabel>Email Address</FormLabel>
 								<FormControl>
-									<Input placeholder="Email" {...field} />
+									<Input 
+									disabled={isPending}
+									placeholder="Email" {...field} />
 								</FormControl>
+								<FormMessage />
+							</FormItem>
+						);
+					}}
+				/>
+				<FormField
+					control={form.control}
+					name="licenseNumber"
+					render={({ field }) => {
+						return (
+							<FormItem>
+								<FormLabel> License number </FormLabel>
+								<FormControl>
+									<Input 
+									disabled={isPending}
+									placeholder="ca09VBb765Xu9900" {...field} />
+								</FormControl>
+
 								<FormMessage />
 							</FormItem>
 						);
@@ -137,7 +130,54 @@ const HospitalRegForm = () => {
 							<FormItem>
 								<FormLabel>Phone Number</FormLabel>
 								<FormControl>
-									<Input placeholder="Phone Number" {...field} />
+									<Input disabled={isPending} placeholder="Phone Number" {...field} />
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						);
+					}}
+				/>
+				<FormField
+					control={form.control}
+					name="address"
+					render={({ field }) => {
+						return (
+							<FormItem>
+								<FormLabel>Address</FormLabel>
+								<FormControl>
+									<Input disabled={isPending} placeholder="Address" {...field} />
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						);
+					}}
+				/>
+
+				<FormField
+					control={form.control}
+					name="city"
+					render={({ field }) => {
+						return (
+							<FormItem>
+								<FormLabel>City</FormLabel>
+								<FormControl>
+									<Input disabled={isPending} placeholder="City" {...field} />
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						);
+					}}
+				/>
+
+				<FormField
+					control={form.control}
+					name="state"
+					render={({ field }) => {
+						return (
+							<FormItem>
+								<FormLabel>State</FormLabel>
+								<FormControl>
+									<Input disabled={isPending} placeholder="State" {...field} />
 								</FormControl>
 								<FormMessage />
 							</FormItem>
@@ -153,17 +193,20 @@ const HospitalRegForm = () => {
 							<FormItem>
 								<FormLabel>Password</FormLabel>
 								<FormControl>
-									<Input placeholder="Password" type="password" {...field} />
+									<Input disabled={isPending} placeholder="Password" type="password" {...field} />
 								</FormControl>
 								<FormMessage />
 							</FormItem>
 						);
 					}}
 				/>
-
-				<Button type="submit" variant="destructive" size="sm">
-					Create an account{" "}
-				</Button>
+				<div className="grid mt-4 col-span-2 items-center justify-center">
+					<Button  disabled={isPending} type="submit" variant="destructive" size="sm"
+					className="w-64"
+					>
+						Create an account{" "}
+					</Button>
+				</div>
 			</form>
 		</Form>
 	);

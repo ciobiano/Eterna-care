@@ -1,3 +1,12 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
 enum Role {
   USER // Donor
   HOSPITAL
@@ -5,33 +14,36 @@ enum Role {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
   email     String   @unique
   password  String
   role      Role     @default(USER)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  donor    Donor?    @relation 
-  hospital Hospital? @relation 
+  donor    Donor?    @relation
+  hospital Hospital? @relation
 }
 
 model Donor {
-  id         Int     @id @default(autoincrement())
+  id         String  @id @default(auto()) @map("_id") @db.ObjectId
   name       String
   address    String
   bloodGroup String
-  phone      String? 
+  phone      String?
   user       User    @relation(fields: [userId], references: [id])
-  userId     Int     @unique 
+  userId     String  @unique @db.ObjectId
 }
 
 model Hospital {
-  id      Int     @id @default(autoincrement())
+  id      String  @id @default(auto()) @map("_id") @db.ObjectId
   name    String
   address String
-  license String 
-  website String? 
+  city    String
+  state   String
+  licenseNumber String
+  website String?
+  phone   String
+  
   user    User    @relation(fields: [userId], references: [id])
-  userId  Int     @unique 
+  userId  String  @unique @db.ObjectId
 }
