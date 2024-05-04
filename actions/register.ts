@@ -3,7 +3,7 @@
 import { db } from "@/lib/db";
 import { donorSchema, hospitalSchema } from "@/schema";
 import { z } from "zod";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import { getUserByEmail } from "@/lib/user";
 
 export const registerDonor = async (values: z.infer<typeof donorSchema>) => {
@@ -92,6 +92,6 @@ export const registerHospital = async (
 	});
 
 	return {
-		success: " ✅ you've successfully logged in",
+		success: " ✅ you've successfully registered",
 	};
 };
