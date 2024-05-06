@@ -8,8 +8,8 @@ datasource db {
 }
 
 enum Role {
-  USER // Donor
-  HOSPITAL
+  DONOR // Donor
+  HOSPITAL //Hospital Entity
   ORGANIZATION // Single Admin
 }
 
@@ -19,7 +19,7 @@ model User {
   email         String    @unique
   emailVerified DateTime?
   password      String
-  role          Role      @default(USER)
+  role          Role      @default(DONOR)
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   donor         Donor?    @relation

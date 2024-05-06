@@ -6,14 +6,12 @@ import { getUserById } from "@/lib/user";
 import { Role } from "@prisma/client";
 
 declare module "next-auth" {
-		interface Session {
+	interface Session {
 		user: {
-			role: Role
+			role: Role;
 		} & DefaultSession["user"];
 	}
 }
- 
-
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
 	callbacks: {
@@ -36,7 +34,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 				session.user.role = token.role as Role;
 			}
 
-			console.log({ sessionToken: token, session });
 			return session;
 		},
 	},

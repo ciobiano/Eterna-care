@@ -30,7 +30,7 @@ export const registerDonor = async (values: z.infer<typeof donorSchema>) => {
 			email,
 			name,
 			password: hashedPassword,
-			role: "USER",
+			role: "DONOR",
 		},
 	});
 
