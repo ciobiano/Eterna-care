@@ -28,6 +28,7 @@ export const registerDonor = async (values: z.infer<typeof donorSchema>) => {
 	const newUser = await db.user.create({
 		data: {
 			email,
+			name,
 			password: hashedPassword,
 			role: "USER",
 		},
@@ -74,6 +75,7 @@ export const registerHospital = async (
 	const newUser = await db.user.create({
 		data: {
 			email,
+			name,
 			password: hashedPassword,
 			role: "HOSPITAL",
 		},
