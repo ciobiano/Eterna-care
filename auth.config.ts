@@ -10,7 +10,9 @@ export default {
 			async authorize(credentials) {
 				const validatedField = loginSchema.safeParse(credentials);
 				if (validatedField.success) {
+
 					const { email, password } = validatedField.data;
+
 					const user = await getUserByEmail(email);
 					if (!user) {
 						return null;

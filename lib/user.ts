@@ -1,4 +1,6 @@
+
 import { db } from "./db";
+
 
 export const getUserByEmail = async (email: string) => {
 	try {
@@ -25,3 +27,5 @@ export const getUserById = async (id: string) => {
 		return null;
 	}
 };
+
+
