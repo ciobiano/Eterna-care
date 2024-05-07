@@ -30,14 +30,14 @@ const ImageGallery: React.FC = () => {
 	];
 
 	return (
-		<div className=" grid grid-cols-4 gap-6 mt-10 xl:mt-24 md:mt-12 z-10 ">
+		<div className=" grid grid-cols-4 gap-6 mt-10 xl:mt-24 md:mt-12 z-10 px-4 ">
 			{images.map((image, index) => (
 				<div
 					key={index}
 					className={`rounded-lg p-2  ${
 						index === 0
-							? "w-[14rem] h-[14rem] xl:w-[15rem] xl:h-[15rem]  "
-							: "w-[10rem] h-[9rem] xl:w-[12rem] xl:h-[12rem] mt-12 mx-auto -mr-20   "
+							? "w-[12rem] h-[12rem] xl:w-[14rem] xl:h-[13rem]  -ml-8  "
+							: "w-[10rem] h-[10rem] xl:w-[10rem]  xl:h-[10rem] mt-12  ml-10 "
 					} `}
 				>
 					<img
