@@ -1,7 +1,9 @@
 import { auth } from "@/auth";
 import Logo from "@/components/Logo";
+import UserButton from "@/components/NavBar/userButton";
 import { SessionProvider, signOut } from "next-auth/react";
 import Link from "next/link";
+
 
 export default async function DashboardLayout({
 	children,
@@ -13,17 +15,18 @@ export default async function DashboardLayout({
 	return (
 		<SessionProvider>
 			<div>
-				<header className="flex w-full justify-between border-b  py-2 items-center mx-8">
-					<div className="flex-row items-center justify-center ">
+				<header className="flex max-w-7xl mx-auto justify-between border-b  py-2 items-center ">
+					<div className="flex items-center justify-center space-x-2 ">
+						<Logo size={40} />
 						<Link
 							href="/"
-							className="flex items-center gap-2 text-lg font-semibold"
+							className="flex-row cursor-pointer items-center gap-2 text-base font-semibold"
 						>
-							<Logo size={32} />
 							RedCell Reserver
-						</Link> 
-						<span className="m-10 font-semibold ">{session?.user.role}</span>
+						<span className="flex  font-semibold text-xs ">{session?.user.role}</span>
+						</Link>
 					</div>
+					<UserButton />
 				</header>
 				<div className="mt-8">{children}</div>
 			</div>
