@@ -11,10 +11,9 @@ import Image from "next/image";
 import FeedBack from "@/components/feedback";
 
 export default function Home() {
-	
 	return (
 		<div className="grid custom-grid grid-flow-col gap-0 h-screen  ">
-			<div className="flex flex-col bg-theme items-start top-0 px-14  ">
+			<div className="flex flex-col bg-theme items-start top-0 px-8 ">
 				<NavBar />
 				<div className="flex flex-col pt-20">
 					<Heading
