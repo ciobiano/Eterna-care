@@ -21,16 +21,27 @@ const Categories = () => {
 			label: "Profile",
 			href: "/donor/profile",
 		},
+		{
+			icon: RxPerson,
+			label: "Logout",
+			href: "/logout"
+
+		},
+		{
+			icon: RxPerson,
+			label: "Profile",
+			href: "/donor/profile",
+		}
 	];
 	return (
 		<Container>
 			<div
 				className="
-          pt-4
+        
           flex 
           flex-row 
           items-center 
-          justify-between
+          
           overflow-x-auto
         "
 			>

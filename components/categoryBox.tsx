@@ -24,21 +24,25 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
         flex-col 
         items-center 
         justify-center 
-        gap-2
+        ml-10
         p-3
+		space-x-4
         border-b-2
         hover:text-neutral-800
         transition
         cursor-pointer
         ${
 					isActive
-						? "border-b-neutral-800 text-neutral-800"
-						: "border-transparent text-neutral-500"
+						? "border-b-neutral-800 text-neutral-800 w-20"
+						: "border-transparent text-neutral-500 w-20"
 				}
       `}
 		>
-			<Link href={href}>
-				<Icon size={18} />
+			<Link
+				href={href}
+				className="flex gap-1 text-xs items-center  justify-center"
+			>
+				<Icon size={15} />
 				{label}
 			</Link>
 		</div>
