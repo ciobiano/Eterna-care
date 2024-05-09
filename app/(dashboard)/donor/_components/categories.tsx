@@ -41,6 +41,7 @@ const Categories = () => {
           flex 
           flex-row 
           items-center 
+		  bg-theme-foreground
           
           overflow-x-auto
         "

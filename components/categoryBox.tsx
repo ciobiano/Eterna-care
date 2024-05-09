@@ -25,7 +25,7 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
         items-center 
         justify-center 
         ml-10
-        p-3
+		p-2
 		space-x-4
         border-b-2
         hover:text-neutral-800
@@ -33,8 +33,8 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
         cursor-pointer
         ${
 					isActive
-						? "border-b-neutral-800 text-neutral-800 w-20"
-						: "border-transparent text-neutral-500 w-20"
+						? "border-b-neutral-800 text-neutral-800 w-20 my-2 "
+						: "border-transparent text-neutral-500 w-20 "
 				}
       `}
 		>
