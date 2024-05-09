@@ -11,8 +11,10 @@ export default async function DashboardLayout({
 }) {
 	const session = await auth();
 
+	
+
 	return (
-		<SessionProvider>
+		<SessionProvider session={session}>
 			<div>
 				<header className="flex max-w-7xl mx-auto justify-between border-b  py-4 items-center ">
 					<div className="flex items-center justify-center space-x-2 ">
@@ -29,7 +31,7 @@ export default async function DashboardLayout({
 					</div>
 					<UserButton />
 				</header>
-				<div className="mt-8">{children}</div>
+				<div>{children}</div>
 			</div>
 		</SessionProvider>
 	);
