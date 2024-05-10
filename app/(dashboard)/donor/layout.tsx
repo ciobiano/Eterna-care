@@ -19,9 +19,9 @@ export default async function DonorLayout({
 	}
 
 	return (
-		<Container>
+		<Container className="max-w-full">
 			<Categories />
-			<div className="mt-8">{children}</div>
+			<div className="">{children}</div>
 		</Container>
 	);
 }

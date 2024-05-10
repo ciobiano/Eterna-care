@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import { Container } from "@/components/container";
 import Logo from "@/components/Logo";
 import UserButton from "@/components/NavBar/userButton";
 import { SessionProvider, signOut } from "next-auth/react";
@@ -11,12 +12,10 @@ export default async function DashboardLayout({
 }) {
 	const session = await auth();
 
-	
-
 	return (
 		<SessionProvider session={session}>
-			<div>
-				<header className="flex max-w-7xl mx-auto justify-between border-b  py-4 items-center ">
+			<Container>
+				<header className="flex justify-between border-b  py-4 items-center  ">
 					<div className="flex items-center justify-center space-x-2 ">
 						<Logo size={40} />
 						<Link
@@ -31,8 +30,9 @@ export default async function DashboardLayout({
 					</div>
 					<UserButton />
 				</header>
-				<div>{children}</div>
-			</div>
+
+				{children}
+			</Container>
 		</SessionProvider>
 	);
 }

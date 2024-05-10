@@ -9,6 +9,10 @@ import gallery3 from "@/assets/notification/google-deepmind-ggeXPf_ykAU-unsplash
 import gallery4 from "@/assets/notification/anirudh--uX3N4e-nCE-unsplash.jpg";
 import background from "@/assets/notification/background.png";
 
+import  avatarBillboard from "@/assets/avatar/_ad547a50-cd3b-42f0-9e5e-beee5545743e.png"
+import  avatarBillboard2 from "@/assets/avatar/_d1f8754a-2e2d-4176-9113-00ea7666708c.png"
+
+
 
 
 
@@ -24,5 +28,7 @@ export {
     gallery2,
     gallery3,
     gallery4,
-    background
+    background,
+    avatarBillboard,
+    avatarBillboard2
 }
