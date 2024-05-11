@@ -49,7 +49,7 @@ model Donor {
   address    String
   bloodGroup String
   phone      String?
-  Inventory  Inventory[]
+  Inventory  Inventory[] @relation("donor")
   user       User        @relation(fields: [userId], references: [id])
   userId     String      @unique @db.ObjectId
 }
@@ -63,7 +63,7 @@ model Hospital {
   licenseNumber String
   website       String?
   phone         String
-  Inventory     Inventory[]
+  Inventory     Inventory[] @relation("hospital")
 
   user   User   @relation(fields: [userId], references: [id])
   userId String @unique @db.ObjectId
@@ -83,14 +83,14 @@ model Inventory {
   id             String        @id @default(auto()) @map("_id") @db.ObjectId
   inventoryType  InventoryType
   bloodGroup     BloodGroup
-  quantity       Int           @default(0) // Ensure non-negative
+  quantity       Int           @default(0)
   email          String
-  organization   Organization  @relation(fields: [organizationId], references: [id])
+  organization   Organization  @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   organizationId String        @db.ObjectId
 
   transactionDate DateTime  @default(now())
-  source          Donor?    @relation(fields: [donorId], references: [id]) // Optional, if 'in' 
-  donorId         String    @unique @db.ObjectId
-  destination     Hospital? @relation(fields: [hospitalId], references: [id]) // Optional, if 'out'
-  hospitalId      String    @unique @db.ObjectId
+  source          Donor?    @relation("donor", fields: [donorId], references: [id])
+  donorId         String?   @db.ObjectId
+  destination     Hospital? @relation("hospital", fields: [hospitalId], references: [id])
+  hospitalId      String?   @db.ObjectId
 }
