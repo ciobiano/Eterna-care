@@ -1,8 +1,8 @@
 import { Container } from "@/components/container";
-import Categories from "./_components/categories";
 
 import { Role } from "@prisma/client";
 import { currentRole } from "@/lib/auth";
+import Categories from "./_components/categories";
 
 interface RoleGateProps {
 	children: React.ReactNode;

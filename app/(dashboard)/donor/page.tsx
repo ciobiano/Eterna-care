@@ -13,7 +13,6 @@ const Page = () => {
 					<div className="flex justify-center h-full w-full max-w-52  max-h-[18rem] mx-auto mt-6 rounded-lg">
 						<CalendarBox />
 					</div>
-					
 				</div>
 			</div>
 		</Container>

@@ -20,30 +20,21 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import { inventorySchema } from "@/schema";
-import { BloodGroup } from "@prisma/client";
-import { formatBloodGroup } from "@/lib/bloodGroup";
+import { BLOOD_GROUP_OPTIONS, inventorySchema } from "@/schema";
 
-
-interface InventoryFormProps {
-  
-}
-
-
-const InventoryForm = ({
-
-}) => {
+const InventoryForm = ({}) => {
 	const form = useForm<z.infer<typeof inventorySchema>>({
 		resolver: zodResolver(inventorySchema),
 		defaultValues: {
-			bloodGroup: "A_POSITIVE",
+			bloodGroup: "",
 			inventoryType: "IN", // Default to "IN"
 			email: "",
-			quantity: 1, // Default to 1
+			quantity: 1,
+			licenseNumber: "",
 		},
 	});
 	const inventoryType = form.watch("inventoryType");
-	const onSubmit = async (data:any) => {
+	const onSubmit = async (data: any) => {
 		try {
 			// Send data to backend for processing
 			// const response = await createOrUpdateInventory(data);
@@ -56,7 +47,7 @@ const InventoryForm = ({
 	};
 	return (
 		<Form {...form}>
-			<form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
+			<form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-4">
 				<FormField
 					control={form.control}
 					name="inventoryType"
@@ -84,23 +75,16 @@ const InventoryForm = ({
 					render={({ field }) => (
 						<FormItem>
 							<FormLabel>Blood Group</FormLabel>
-							<Select
-								onValueChange={field.onChange}
-								value={formatBloodGroup(field.value)}
-							>
+							<Select onValueChange={field.onChange} value={field.value}>
 								<FormControl>
 									<SelectTrigger>
 										<SelectValue placeholder="Select Blood Group" />
 									</SelectTrigger>
 								</FormControl>
 								<SelectContent>
-									{Object.values(BloodGroup).map((bloodGroupEnum) => (
-										<SelectItem
-											key={bloodGroupEnum}
-											value={bloodGroupEnum} // Use the enum value internally
-										>
-											{/* Display the string value in the dropdown */}
-											{bloodGroupEnum.replace("_", " ")}
+									{BLOOD_GROUP_OPTIONS.map((group, index) => (
+										<SelectItem key={index} value={group}>
+											{group}
 										</SelectItem>
 									))}
 								</SelectContent>
@@ -115,9 +99,13 @@ const InventoryForm = ({
 					name="quantity"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Quantity</FormLabel>
+							<FormLabel>Quantity (ML)</FormLabel>
 							<FormControl>
-								<Input {...field} type="number" placeholder="Enter quantity" />
+								<Input
+									{...form.register("quantity", { valueAsNumber: true })}
+									type="number"
+									placeholder="Enter quantity"
+								/>
 							</FormControl>
 							<FormMessage />
 						</FormItem>
@@ -141,30 +129,20 @@ const InventoryForm = ({
 				{inventoryType === "OUT" && (
 					<FormField
 						control={form.control}
-						name="hospitalId"
+						name="licenseNumber"
 						render={({ field }) => (
 							<FormItem>
-								<FormLabel>Hospital</FormLabel>
-								{/* Add your hospital selection component (e.g., dropdown, autocomplete) */}
+								<FormLabel>License ID </FormLabel>
+								<FormControl>
+									<Input {...field} type="text" placeholder="Hospital License ID" />
+								</FormControl>
 								<FormMessage />
 							</FormItem>
 						)}
 					/>
 				)}
-				{inventoryType === "IN" && (
-					<FormField
-						control={form.control}
-						name="donorId"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>Donor</FormLabel>
-								{/* Add your donor selection component */}
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
-				)}
-				<Button type="submit">Submit</Button>
+				
+				<Button variant="destructive" type="submit">Submit</Button>
 			</form>
 		</Form>
 	);
