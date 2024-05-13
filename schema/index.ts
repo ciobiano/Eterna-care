@@ -30,31 +30,31 @@ export const hospitalSchema = z.object({
 	password: z.string().min(6, "Password should be at least 6 characters"),
 });
 
+export const BLOOD_GROUP_OPTIONS = [
+	"A+",
+	"A-",
+	"B+",
+	"B-",
+	"AB+",
+	"AB-",
+	"O+",
+	"O-",
+];
+
 export const inventorySchema = z.object({
 	inventoryType: z.enum(["IN", "OUT"], {
 		required_error: "Inventory type is required",
 	}),
-	bloodGroup: z.enum(
-		[
-			"A_POSITIVE",
-			"A_NEGATIVE",
-			"B_POSITIVE",
-			"B_NEGATIVE",
-			"AB_POSITIVE",
-			"AB_NEGATIVE",
-			"O_POSITIVE",
-			"O_NEGATIVE",
-		],
-		{
-			required_error: "Blood group is required",
-		}
-	),
+	bloodGroup: z.string().refine((val) => BLOOD_GROUP_OPTIONS.includes(val), {
+		message: "Invalid blood group",
+	}),
 	quantity: z.number().int().positive().min(1, {
 		message: "Quantity should be at least 1.",
 	}),
 	email: z.string().email({
 		message: "Invalid email address",
 	}),
-	hospitalId: z.string().optional(),
-	donorId: z.string().optional(),
+	licenseNumber: z.string().min(5, {
+		message: "Hospital  ID is required",
+	}),
 });

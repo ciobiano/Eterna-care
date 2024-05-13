@@ -12,16 +12,7 @@ enum InventoryType {
   OUT
 }
 
-enum BloodGroup {
-  A_POSITIVE
-  A_NEGATIVE
-  B_POSITIVE
-  B_NEGATIVE
-  AB_POSITIVE
-  AB_NEGATIVE
-  O_POSITIVE
-  O_NEGATIVE
-}
+
 
 enum Role {
   DONOR // Donor
@@ -46,34 +37,37 @@ model User {
 model Donor {
   id         String      @id @default(auto()) @map("_id") @db.ObjectId
   name       String
+  email      String    @unique
   address    String
   bloodGroup String
   phone      String?
   Inventory  Inventory[] @relation("donor")
   user       User        @relation(fields: [userId], references: [id])
   userId     String      @unique @db.ObjectId
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
 }
 
 model Hospital {
   id            String      @id @default(auto()) @map("_id") @db.ObjectId
   name          String
+  email         String     @unique
   address       String
   city          String
   state         String
-  licenseNumber String
+  licenseNumber String    @unique
   website       String?
   phone         String
   Inventory     Inventory[] @relation("hospital")
 
   user   User   @relation(fields: [userId], references: [id])
   userId String @unique @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Organization {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
-  email    String
-  password String
-
   inventory Inventory[] // One-to-many relationship 
   user      User        @relation(fields: [userId], references: [id])
   userId    String      @unique @db.ObjectId
@@ -82,7 +76,7 @@ model Organization {
 model Inventory {
   id             String        @id @default(auto()) @map("_id") @db.ObjectId
   inventoryType  InventoryType
-  bloodGroup     BloodGroup
+  bloodGroup     String
   quantity       Int           @default(0)
   email          String
   organization   Organization  @relation(fields: [organizationId], references: [id], onDelete: Cascade)
@@ -93,4 +87,6 @@ model Inventory {
   donorId         String?   @db.ObjectId
   destination     Hospital? @relation("hospital", fields: [hospitalId], references: [id])
   hospitalId      String?   @db.ObjectId
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 }
