@@ -6,6 +6,7 @@ export const getUserByEmail = async (email: string) => {
 			where: {
 				email,
 			},
+			
 		});
 		return user;
 	} catch {
@@ -19,6 +20,7 @@ export const getUserById = async (id: string) => {
 			where: {
 				id,
 			},
+			
 		});
 		return user;
 	} catch {
@@ -27,34 +29,8 @@ export const getUserById = async (id: string) => {
 };
 
 
-export const getHospital = async (email: string, licenseNumber: string) => {
-	try {
-		const hospital = await db.hospital.findUnique({
-			where: {
-				email,
-				licenseNumber,
-			},
-		});
 
-		return hospital;
-	} catch (error) {
-		return null;
-	}
-};
 
-export const getDonorByEmail = async (email: string) => {
-	try {
-		const donor = await db.donor.findUnique({
-			where: {
-				email,
-			},
-		});
-
-		return donor;
-	} catch (error) {
-		return null;
-	}
-}
 
 
 
