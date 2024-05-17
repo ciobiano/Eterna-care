@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -21,54 +21,97 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { BLOOD_GROUP_OPTIONS, inventorySchema } from "@/schema";
+import { toast } from "@/components/ui/use-toast";
+import { InventoryType } from "@prisma/client";
+import { redirect } from "next/navigation";
+import { useCurrentRole } from "@/hooks/use-current-role";
+import inventoryInput from "@/actions/inventory";
+import { useSession } from "next-auth/react";
+
+type Input = z.infer<typeof inventorySchema>;
 
 const InventoryForm = ({}) => {
+	const role = useCurrentRole();
+	const [isLoading, setIsLoading] = useState<boolean>(false);
+	const [showForm, setShowForm] = useState<boolean>(true);
+	const [error, setError] = useState<string | undefined>("");
+	const [success, setSuccess] = useState<string | undefined>("");
+	const [isPending, startTransition] = useTransition();
+
 	const form = useForm<z.infer<typeof inventorySchema>>({
 		resolver: zodResolver(inventorySchema),
 		defaultValues: {
 			bloodGroup: "",
 			inventoryType: "IN", // Default to "IN"
 			email: "",
-			quantity: 1,
-			licenseNumber: "",
+			quantity: 1, // Default to 1
 		},
 	});
+
+	const { register, handleSubmit, watch } = form;
+
 	const inventoryType = form.watch("inventoryType");
-	const onSubmit = async (data: any) => {
-		try {
-			// Send data to backend for processing
-			// const response = await createOrUpdateInventory(data);
-			// ... handle response (success/error)
-			console.log("Data submitted:", data);
-		} catch (error) {
-			// Handle errors here
-			console.error("Error submitting inventory:", error);
-		}
-	};
-	return (
+
+	async function onSubmit(values: Input) {
+		setIsLoading(true);
+
+		startTransition(() => {
+			inventoryInput(values)
+				.then((data) => {
+					setError(data?.error);
+					setSuccess(data?.success);
+
+					if (data?.error) {
+						setError(data.error);
+						toast({
+							title: error,
+							description: "Please try again with correct credentials",
+						});
+					} else if (data.success) {
+						setSuccess(data.success);
+						toast({
+							title: success,
+							description: "You will be redirected to the dashboard shortly",
+						});
+						setTimeout(() => {
+							redirect(`/dashboard/${role}`);
+						}, 3000); // Redirect after 3 seconds
+						setShowForm(false);
+					}
+				})
+				.finally(() => {
+					setIsLoading(false);
+				});
+		});
+	}
+
+	return showForm ? (
 		<Form {...form}>
 			<form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-4">
-				<FormField
-					control={form.control}
-					name="inventoryType"
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>Inventory Type</FormLabel>
-							<Select onValueChange={field.onChange} value={field.value}>
-								<FormControl>
-									<SelectTrigger>
-										<SelectValue placeholder="Select Inventory Type" />
-									</SelectTrigger>
-								</FormControl>
-								<SelectContent>
-									<SelectItem value="IN">IN</SelectItem>
-									<SelectItem value="OUT">OUT</SelectItem>
-								</SelectContent>
-							</Select>
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
+				{role === "ORGANIZATION" && (
+					<FormField
+						control={form.control}
+						name="inventoryType"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>Inventory Type</FormLabel>
+								<Select onValueChange={field.onChange} value={field.value}>
+									<FormControl>
+										<SelectTrigger>
+											<SelectValue placeholder="Select Inventory Type" />
+										</SelectTrigger>
+									</FormControl>
+									<SelectContent>
+										<SelectItem value={InventoryType.IN}>IN</SelectItem>
+										<SelectItem value={InventoryType.OUT}>OUT</SelectItem>
+									</SelectContent>
+								</Select>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+				)}
+
 				<FormField
 					control={form.control}
 					name="bloodGroup"
@@ -102,6 +145,7 @@ const InventoryForm = ({}) => {
 							<FormLabel>Quantity (ML)</FormLabel>
 							<FormControl>
 								<Input
+									disabled={isPending}
 									{...form.register("quantity", { valueAsNumber: true })}
 									type="number"
 									placeholder="Enter quantity"
@@ -118,33 +162,24 @@ const InventoryForm = ({}) => {
 						<FormItem>
 							<FormLabel>Email</FormLabel>
 							<FormControl>
-								<Input {...field} type="email" placeholder="Email" />
+								<Input
+									disabled={isPending}
+									{...field}
+									type="email"
+									placeholder="Email"
+								/>
 							</FormControl>
 							<FormMessage />
 						</FormItem>
 					)}
 				/>
-
-				{/* Conditionally render hospitalId or donorId based on inventoryType */}
-				{inventoryType === "OUT" && (
-					<FormField
-						control={form.control}
-						name="licenseNumber"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>License ID </FormLabel>
-								<FormControl>
-									<Input {...field} type="text" placeholder="Hospital License ID" />
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
-				)}
-				
-				<Button variant="destructive" type="submit">Submit</Button>
+				<Button type="submit" variant="destructive" disabled={isLoading}>
+					{isLoading ? "Submitting..." : "Submit"}
+				</Button>
 			</form>
 		</Form>
+	) : (
+		<p>{success}</p>
 	);
 };
 
