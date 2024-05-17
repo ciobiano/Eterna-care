@@ -38,6 +38,7 @@ export const registerDonor = async (values: z.infer<typeof donorSchema>) => {
 	await db.donor.create({
 		data: {
 			name,
+			email,
 			address,
 			phone,
 			bloodGroup,
@@ -85,6 +86,7 @@ export const registerHospital = async (
 		data: {
 			name,
 			address,
+			email,
 			phone,
 			licenseNumber,
 			city,
@@ -97,3 +99,5 @@ export const registerHospital = async (
 		success: " ✅ you've successfully registered",
 	};
 };
+
+

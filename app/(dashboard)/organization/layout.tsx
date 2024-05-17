@@ -3,6 +3,7 @@ import { Container } from "@/components/container";
 import { Role } from "@prisma/client";
 import { currentRole } from "@/lib/auth";
 import Categories from "./_components/categories";
+import { SessionProvider } from "next-auth/react";
 
 interface RoleGateProps {
 	children: React.ReactNode;
@@ -10,14 +11,16 @@ interface RoleGateProps {
 
 export default async function DonorLayout({ children }: RoleGateProps) {
 	const role = await currentRole();
-	if (role !== Role.DONOR) {
+	if (role !== Role.ORGANIZATION) {
 		return <div>Error: Access denied</div>;
 	}
 
 	return (
-		<Container className="max-w-full">
-			<Categories />
-			<div className="">{children}</div>
-		</Container>
+		<SessionProvider>
+			<Container className="max-w-full">
+				<Categories />
+				<div className="">{children}</div>
+			</Container>
+		</SessionProvider>
 	);
 }

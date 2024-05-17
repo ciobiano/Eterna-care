@@ -54,7 +54,5 @@ export const inventorySchema = z.object({
 	email: z.string().email({
 		message: "Invalid email address",
 	}),
-	licenseNumber: z.string().min(5, {
-		message: "Hospital  ID is required",
-	}),
+	
 });

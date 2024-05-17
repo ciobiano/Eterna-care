@@ -77,9 +77,11 @@ const HospitalRegForm = () => {
 							<FormItem>
 								<FormLabel> Name</FormLabel>
 								<FormControl>
-									<Input 
-									disabled={isPending}
-									placeholder="Hospital Name" {...field} />
+									<Input
+										disabled={isPending}
+										placeholder="Hospital Name"
+										{...field}
+									/>
 								</FormControl>
 								<FormMessage />
 							</FormItem>
@@ -95,9 +97,7 @@ const HospitalRegForm = () => {
 							<FormItem>
 								<FormLabel>Email Address</FormLabel>
 								<FormControl>
-									<Input 
-									disabled={isPending}
-									placeholder="Email" {...field} />
+									<Input disabled={isPending} placeholder="Email" {...field} />
 								</FormControl>
 								<FormMessage />
 							</FormItem>
@@ -112,9 +112,11 @@ const HospitalRegForm = () => {
 							<FormItem>
 								<FormLabel> License number </FormLabel>
 								<FormControl>
-									<Input 
-									disabled={isPending}
-									placeholder="ca09VBb765Xu9900" {...field} />
+									<Input
+										disabled={isPending}
+										placeholder="ca09VBb765Xu9900"
+										{...field}
+									/>
 								</FormControl>
 
 								<FormMessage />
@@ -130,7 +132,11 @@ const HospitalRegForm = () => {
 							<FormItem>
 								<FormLabel>Phone Number</FormLabel>
 								<FormControl>
-									<Input disabled={isPending} placeholder="Phone Number" {...field} />
+									<Input
+										disabled={isPending}
+										placeholder="Phone Number"
+										{...field}
+									/>
 								</FormControl>
 								<FormMessage />
 							</FormItem>
@@ -145,7 +151,11 @@ const HospitalRegForm = () => {
 							<FormItem>
 								<FormLabel>Address</FormLabel>
 								<FormControl>
-									<Input disabled={isPending} placeholder="Address" {...field} />
+									<Input
+										disabled={isPending}
+										placeholder="Address"
+										{...field}
+									/>
 								</FormControl>
 								<FormMessage />
 							</FormItem>
@@ -193,7 +203,12 @@ const HospitalRegForm = () => {
 							<FormItem>
 								<FormLabel>Password</FormLabel>
 								<FormControl>
-									<Input disabled={isPending} placeholder="Password" type="password" {...field} />
+									<Input
+										disabled={isPending}
+										placeholder="Password"
+										type="password"
+										{...field}
+									/>
 								</FormControl>
 								<FormMessage />
 							</FormItem>
@@ -201,8 +216,12 @@ const HospitalRegForm = () => {
 					}}
 				/>
 				<div className="grid mt-4 col-span-2 items-center justify-center">
-					<Button  disabled={isPending} type="submit" variant="destructive" size="sm"
-					className="w-64"
+					<Button
+						disabled={isPending}
+						type="submit"
+						variant="destructive"
+						size="sm"
+						className="w-64"
 					>
 						Create an account{" "}
 					</Button>

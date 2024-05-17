@@ -1,9 +1,12 @@
-import React from 'react'
+import { auth } from "@/auth";
 
-const page = () => {
-  return (
-    <div>page</div>
-  )
+export default async function Page() {
+	const session = await auth();
+	if (!session) return <div>Not authenticated</div>;
+
+	return (
+		<div>
+			<pre>{JSON.stringify(session, null, 2)}</pre>
+		</div>
+	);
 }
-
-export default page

@@ -83,7 +83,11 @@ const DonorRegistrationForm = () => {
 							<FormItem>
 								<FormLabel> Name</FormLabel>
 								<FormControl>
-									<Input placeholder="full name" {...field} />
+									<Input
+										disabled={isPending}
+										placeholder="full name"
+										{...field}
+									/>
 								</FormControl>
 								<FormMessage />
 							</FormItem>
@@ -126,7 +130,11 @@ const DonorRegistrationForm = () => {
 							<FormItem>
 								<FormLabel>Address</FormLabel>
 								<FormControl>
-									<Input placeholder="Address" {...field} />
+									<Input
+										disabled={isPending}
+										placeholder="Address"
+										{...field}
+									/>
 								</FormControl>
 								<FormMessage />
 							</FormItem>
@@ -142,7 +150,11 @@ const DonorRegistrationForm = () => {
 							<FormItem>
 								<FormLabel>Email Address</FormLabel>
 								<FormControl>
-									<Input placeholder="Email Address" {...field} />
+									<Input
+										disabled={isPending}
+										placeholder="Email Address"
+										{...field}
+									/>
 								</FormControl>
 								<FormMessage />
 							</FormItem>
@@ -157,7 +169,11 @@ const DonorRegistrationForm = () => {
 							<FormItem>
 								<FormLabel>Phone Number</FormLabel>
 								<FormControl>
-									<Input placeholder="Phone Number" {...field} />
+									<Input
+										disabled={isPending}
+										placeholder="Phone Number"
+										{...field}
+									/>
 								</FormControl>
 								<FormMessage />
 							</FormItem>
@@ -173,7 +189,12 @@ const DonorRegistrationForm = () => {
 							<FormItem>
 								<FormLabel>Password</FormLabel>
 								<FormControl>
-									<Input placeholder="Password" type="password" {...field} />
+									<Input
+										disabled={isPending}
+										placeholder="Password"
+										type="password"
+										{...field}
+									/>
 								</FormControl>
 								<FormMessage />
 							</FormItem>
@@ -181,7 +202,7 @@ const DonorRegistrationForm = () => {
 					}}
 				/>
 
-				<Button type="submit" variant="destructive">
+				<Button type="submit" variant="destructive" disabled={isPending}>
 					Register
 				</Button>
 			</form>

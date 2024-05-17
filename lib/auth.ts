@@ -10,3 +10,8 @@ export const currentRole = async () => {
     const session = await auth()
     return session?.user.role
 }
+
+export const currentUserId = async () => {
+    const session = await auth()
+    return session?.user.id
+}
