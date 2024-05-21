@@ -1,36 +1,33 @@
+
 import { db } from "./db";
 
-export const getHospital = async (email:string) => {
+export const getHospital = async (email: string) => {
 	try {
 		const hospital = await db.hospital.findUnique({
 			where: {
-			
-				email
-				
+				email,
 			},
 		});
 
 		return hospital;
-	} catch  {
+	} catch {
 		return null;
 	}
 };
 
-export const getDonor = async (email: string, ) => {
+export const getDonor = async (email: string) => {
 	try {
 		const donor = await db.donor.findUnique({
 			where: {
 				email,
-				
 			},
 		});
 
 		return donor;
-	} catch  {
+	} catch {
 		return null;
 	}
 };
-
 
 export const getOrganization = async (id: string) => {
 	try {
@@ -41,10 +38,8 @@ export const getOrganization = async (id: string) => {
 		});
 
 		return organization;
-	} catch  {
+	} catch {
 		return null;
 	}
-}
-
-
+};
 

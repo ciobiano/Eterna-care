@@ -3,9 +3,12 @@
 import CategoryBox from "@/components/categoryBox";
 import { Container } from "@/components/container";
 import { RxDashboard, RxPerson } from "react-icons/rx";
-import {MdOutlineInventory} from "react-icons/md";
+import { MdOutlineInventory } from "react-icons/md";
+import { useParams } from "next/navigation";
 
 const Categories = () => {
+	const params = useParams()
+
 	const routes = [
 		{
 			icon: RxDashboard,
@@ -22,7 +25,6 @@ const Categories = () => {
 			label: "Profile",
 			href: "/organization/profile",
 		},
-		
 	];
 	return (
 		<Container>

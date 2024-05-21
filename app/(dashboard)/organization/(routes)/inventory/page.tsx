@@ -1,10 +1,12 @@
 import { Button } from "@/components/ui/button";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PlusCircle } from "lucide-react";
 import React from "react";
 import InventoryForm from "../../_components/inventoryForm";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { auth } from "@/auth";
+import { InventoryColumn } from "../../_components/column";
+import { Card, CardContent } from "@/components/ui/card";
+import InventoryClient from "../../_components/client";
 
 const InventoryPage = () => {
 	return (
@@ -32,6 +34,13 @@ const InventoryPage = () => {
 						</Dialog>
 					</div>
 				</div>
+				<TabsContent value="inventory">
+					<Card x-chunk="dashboard-06-chunk-0">
+						<CardContent>
+							<InventoryClient />
+						</CardContent>
+					</Card>
+				</TabsContent>
 			</Tabs>
 		</main>
 	);

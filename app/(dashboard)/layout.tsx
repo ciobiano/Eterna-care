@@ -1,7 +1,7 @@
 import { auth } from "@/auth";
 import { Container } from "@/components/container";
 import Logo from "@/components/Logo";
-import UserButton from "@/components/NavBar/userButton";
+import UserButton from "@/components/navBar/userButton";
 import { SessionProvider, signOut } from "next-auth/react";
 import Link from "next/link";
 
