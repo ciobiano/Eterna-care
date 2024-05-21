@@ -10,7 +10,7 @@ export default function useAuthRedirect() {
 	useEffect(() => {
 		if (!role) return;
 
-		const redirectPath = `/dashboard/${role}`;
+		const redirectPath = `/${role}`;
 		router.push(redirectPath);
 	}, [role, router]);
 }

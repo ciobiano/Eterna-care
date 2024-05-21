@@ -23,15 +23,15 @@ import {
 import { BLOOD_GROUP_OPTIONS, inventorySchema } from "@/schema";
 import { toast } from "@/components/ui/use-toast";
 import { InventoryType } from "@prisma/client";
-import { redirect } from "next/navigation";
+import {  useRouter } from "next/navigation";
 import { useCurrentRole } from "@/hooks/use-current-role";
 import inventoryInput from "@/actions/inventory";
-import { useSession } from "next-auth/react";
 
 type Input = z.infer<typeof inventorySchema>;
 
 const InventoryForm = ({}) => {
 	const role = useCurrentRole();
+	const router = useRouter();
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [showForm, setShowForm] = useState<boolean>(true);
 	const [error, setError] = useState<string | undefined>("");
@@ -70,13 +70,14 @@ const InventoryForm = ({}) => {
 					} else if (data.success) {
 						setSuccess(data.success);
 						toast({
-							title: success,
-							description: "You will be redirected to the dashboard shortly",
+							title: "You will be redirected shortly 🎉",
+							description: success,
 						});
-						setTimeout(() => {
-							redirect(`/dashboard/${role}`);
-						}, 3000); // Redirect after 3 seconds
 						setShowForm(false);
+						setTimeout(() => {
+							router.refresh();
+							
+						}, 3000); // Redirect after 3 seconds
 					}
 				})
 				.finally(() => {

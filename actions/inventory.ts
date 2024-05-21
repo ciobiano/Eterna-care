@@ -6,6 +6,27 @@ import { z } from "zod";
 import { getHospital, getDonor } from "@/lib/inventory";
 import { auth } from "@/auth";
 
+async function getInventoryTotals(
+	organizationId: string,
+	inventoryType: InventoryType
+) {
+	return db.inventory.groupBy({
+		by: ["bloodGroup"],
+		where: { organizationId, inventoryType },
+		_sum: { quantity: true },
+	});
+}
+
+async function getInventoryTotalByBloodGroup(
+	organizationId: string,
+	inventoryType: InventoryType,
+	bloodGroup: string
+) {
+	const totals = await getInventoryTotals(organizationId, inventoryType);
+	const totalForGroup = totals.find((group) => group.bloodGroup === bloodGroup);
+	return totalForGroup?._sum.quantity || 0; // Return 0 if not found
+}
+
 export default async function InventoryInput(
 	values: z.infer<typeof inventorySchema>
 ) {
@@ -37,13 +58,31 @@ export default async function InventoryInput(
 		let hospitalId: string | undefined;
 		let donorId: string | undefined;
 
-		if (inventoryType === InventoryType.OUT) {
+		const totalIn = await getInventoryTotalByBloodGroup(
+			organizationId,
+			InventoryType.IN,
+			bloodGroup
+		);
+		const totalOut = await getInventoryTotalByBloodGroup(
+			organizationId,
+			InventoryType.OUT,
+			bloodGroup
+		);
+
+		const availableQuantity = totalIn - totalOut;
+
+		if (inventoryType === "OUT") {
+			if (availableQuantity < quantity) {
+				return {
+					error: `Only ${availableQuantity} units of ${bloodGroup} blood available.`,
+				};
+			}
 			const hospital = await getHospital(email);
 			if (!hospital) {
 				return { error: "Hospital email not found" };
 			}
 			hospitalId = hospital.id;
-		} else if (inventoryType === InventoryType.IN) {
+		} else if (inventoryType === "IN") {
 			const donor = await getDonor(email);
 			if (!donor) {
 				return { error: "Donor email not found" };
@@ -71,6 +110,7 @@ export default async function InventoryInput(
 		);
 
 		return { success: "Inventory entry created successfully." };
+		
 	} catch (error) {
 		return { error: "An error occurred while processing your request." };
 	}

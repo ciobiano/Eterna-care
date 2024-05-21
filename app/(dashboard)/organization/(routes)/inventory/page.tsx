@@ -4,9 +4,10 @@ import { PlusCircle } from "lucide-react";
 import React from "react";
 import InventoryForm from "../../_components/inventoryForm";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { InventoryColumn } from "../../_components/column";
+import { InventoryColumn } from "../../_components/InventoryTable/column";
 import { Card, CardContent } from "@/components/ui/card";
-import InventoryClient from "../../_components/client";
+import InventoryClient from "../../_components/InventoryTable/client";
+import DonorClient from "../../_components/donorTable/client";
 
 const InventoryPage = () => {
 	return (
@@ -38,6 +39,13 @@ const InventoryPage = () => {
 					<Card x-chunk="dashboard-06-chunk-0">
 						<CardContent>
 							<InventoryClient />
+						</CardContent>
+					</Card>
+				</TabsContent>
+				<TabsContent value="donors">
+					<Card x-chunk="dashboard-06-chunk-0">
+						<CardContent>
+							<DonorClient />
 						</CardContent>
 					</Card>
 				</TabsContent>

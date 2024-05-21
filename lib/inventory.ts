@@ -43,3 +43,15 @@ export const getOrganization = async (id: string) => {
 	}
 };
 
+
+
+export const getDonors = async () => {
+	try {
+		const donors = await db.donor.findMany();
+		return donors;
+	} catch (error) {
+		throw new Error("Failed to fetch donors.");
+	}
+};
+
+

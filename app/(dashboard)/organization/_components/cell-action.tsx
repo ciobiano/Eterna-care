@@ -9,19 +9,19 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { Copy, MoreHorizontal, Pencil, Trash } from "lucide-react";
-import { useParams, useRouter } from "next/navigation";
+import {  useRouter } from "next/navigation";
 import { useState } from "react";
-import axios from "axios";
+
 import { AlertModal } from "@/components/modal/alert-modal";
-import { InventoryColumn } from "./column";
+import { InventoryColumn } from "./InventoryTable/column";
 import { toast } from "@/components/ui/use-toast";
+import deleteInventory from "@/actions/deleteInventory";
 
 interface CellActionProps {
 	data: InventoryColumn;
 }
 
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
-
 	const router = useRouter();
 	const [open, setOpen] = useState(false);
 	const [loading, setLoading] = useState(false);
@@ -29,25 +29,21 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
 	const onCopy = () => {
 		navigator.clipboard.writeText(data.id);
 		toast({
-            title: "Copied to clipboard",
-        });
+			title: "Copied to clipboard",
+		});
 	};
 
 	const onDelete = async () => {
 		try {
-			setLoading(true);
-			await axios.delete(`/api/inventories/${data.id}`);
-			toast({
-                title: "inventory deleted ",
-                
-            
-            });
-			router.refresh();
+			 setLoading(true);
+				await deleteInventory({ id: data.id });
+				toast({ title: "Inventory deleted" });
+				router.refresh();
 		} catch (error) {
 			toast({
-                title: "Error",
-                description: "Failed to delete inventory",
-            });
+				title: "Error",
+				description: "Failed to delete inventory",
+			});
 		} finally {
 			setLoading(false);
 			setOpen(false);

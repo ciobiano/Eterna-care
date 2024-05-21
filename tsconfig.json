@@ -26,8 +26,7 @@
 		"**/*.ts",
 		"**/*.tsx",
 		".next/types/**/*.ts",
-		"app/(dashboard)/organization/[routeId]",
-, "app/(dashboard)/organization/_components"		"app/(dashboard)/organization/(routes)/inventory"
+		
 	],
 	"exclude": ["node_modules"]
 }
