@@ -4,9 +4,7 @@ import { inventorySchema } from "@/schema";
 import { InventoryType, Prisma } from "@prisma/client";
 import { z } from "zod";
 import { getHospital, getDonor } from "@/lib/inventory";
-import { Session } from "next-auth";
 import { auth } from "@/auth";
-
 
 export default async function InventoryInput(
 	values: z.infer<typeof inventorySchema>
@@ -14,7 +12,6 @@ export default async function InventoryInput(
 	const validatedFields = inventorySchema.safeParse(values);
 
 	if (!validatedFields.success) {
-		console.log("error", validatedFields.error);
 		return { error: "Invalid input data." };
 	}
 
@@ -22,7 +19,6 @@ export default async function InventoryInput(
 
 	try {
 		const session = await auth();
-		console.log("session", session);
 
 		const userId = session?.user.id;
 
