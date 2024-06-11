@@ -18,7 +18,6 @@ export default async function deleteInventory(
 		});
 		return { success: "Inventory entry deleted successfully." };
 	} catch (error) {
-		console.error("Error in deleteInventory:", error);
 		return { error: "An error occurred while processing your request." };
 	}
 }

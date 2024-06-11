@@ -4,6 +4,7 @@ import { InventoryType } from "@prisma/client";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 import { CellAction } from "../cell-action";
+import { format } from "date-fns";
 
 export type InventoryColumn = {
 	id: string;
@@ -40,6 +41,7 @@ export const columns: ColumnDef<InventoryColumn>[] = [
 	},
 	{
 		accessorKey: "createdAt",
+
 		header: ({ column }) => {
 			return (
 				<Button
@@ -51,6 +53,12 @@ export const columns: ColumnDef<InventoryColumn>[] = [
 				</Button>
 			);
 		},
+		cell: ({ row }) => (
+			<span>{format(new Date(row.original.createdAt), "dd-MMM-yyyy")}</span>
+		),
+	
+		
+		
 	},
 	{
 		id: "action",

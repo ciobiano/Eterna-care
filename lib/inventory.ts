@@ -54,4 +54,11 @@ export const getDonors = async () => {
 	}
 };
 
-
+export const getHospitals = async () => {
+	try {
+		const hospitals = await db.hospital.findMany();
+		return hospitals;
+	} catch (error) {
+		throw new Error("Failed to fetch hospitals.");
+	}
+};

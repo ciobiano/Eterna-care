@@ -5,6 +5,7 @@ import { DEFAULT_REDIRECT } from "@/routes";
 import { loginSchema } from "@/schema";
 import { AuthError } from "next-auth";
 import { z } from "zod";
+import { currentRole } from '@/lib/auth';
 
 export const login = async (values: z.infer<typeof loginSchema>) => {
 	const validatedFields = loginSchema.safeParse(values);
@@ -18,10 +19,13 @@ export const login = async (values: z.infer<typeof loginSchema>) => {
 	const { email, password } = validatedFields.data;
 
 	try {
+		const role = await currentRole();
+		const Role = role?.toLowerCase(); // Add null check for 'role'
+		console.log(Role)
 		await signIn("credentials", {
 			email,
 			password,
-			redirectTo: DEFAULT_REDIRECT,
+			redirectTo: `/${Role}`,
 		});
 	} catch (error) {
 		if (error instanceof AuthError) {

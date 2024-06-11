@@ -15,7 +15,7 @@ const InventoryClient = async () => {
 			quantity: item.quantity,
 			inventoryType: item.inventoryType,
 			bloodGroup: item.bloodGroup,
-			createdAt: new Date(item.createdAt).toLocaleDateString(),
+			createdAt: (item.createdAt)
 		})) ?? [];
 
 	return (

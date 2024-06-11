@@ -12,7 +12,7 @@ export const getInventories = async () => {
 		throw new Error("Access denied");
 	}
 
-	console.log(id);
+
 
 	try {
 		const inventories = await db.inventory.findMany({

@@ -20,6 +20,12 @@ enum Role {
   ORGANIZATION // Single Admin
 }
 
+enum AppointmentStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+}
+
 model User {
   id            String        @id @default(auto()) @map("_id") @db.ObjectId
   name          String
@@ -42,6 +48,7 @@ model Donor {
   bloodGroup String
   phone      String?
   Inventory  Inventory[] @relation("donor")
+  appointments Appointment[]
   user       User        @relation(fields: [userId], references: [id])
   userId     String      @unique @db.ObjectId
   createdAt  DateTime    @default(now())
@@ -59,7 +66,7 @@ model Hospital {
   website       String?
   phone         String
   Inventory     Inventory[] @relation("hospital")
-
+  appointments  Appointment[]
   user   User   @relation(fields: [userId], references: [id])
   userId String @unique @db.ObjectId
   createdAt DateTime @default(now())
@@ -89,4 +96,17 @@ model Inventory {
   hospitalId      String?   @db.ObjectId
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
+}
+
+
+model Appointment {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  donor       Donor    @relation(fields: [donorId], references: [id])
+  donorId     String   @db.ObjectId
+  hospital    Hospital @relation(fields: [hospitalId], references: [id])
+  hospitalId  String   @db.ObjectId
+  scheduledAt DateTime
+  status      AppointmentStatus
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

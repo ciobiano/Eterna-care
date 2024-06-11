@@ -40,6 +40,9 @@ export const BLOOD_GROUP_OPTIONS = [
 	"O+",
 	"O-",
 ];
+export const STATUS=[
+	
+]
 
 export const inventorySchema = z.object({
 	inventoryType: z.enum(["IN", "OUT"], {
