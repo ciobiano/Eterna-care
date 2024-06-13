@@ -11,13 +11,10 @@ import {
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { hospitalSchema } from "@/schema";
+import { laboratorySchema } from "@/schema";
 import { toast } from "@/components/ui/use-toast";
-import { registerHospital } from "@/actions/register";
+import { registerLaboratory } from "@/actions/register";
 import { useState, useTransition } from "react";
-
-
-
 
 const consultantForm = () => {
 	return (
@@ -36,7 +33,7 @@ const consultantForm = () => {
 								<FormControl>
 									<Input
 										disabled={isPending}
-										placeholder="Hospital Name"
+										placeholder="Laboratory Name"
 										{...field}
 									/>
 								</FormControl>

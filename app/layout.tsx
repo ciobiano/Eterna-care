@@ -3,11 +3,10 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 
-
 const Mont = Montserrat({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-	title: "Redcell Reserve",
+	title: "Eterna Care Medical Institute",
 	description: "A platform to connect blood donors with those in need.",
 };
 

@@ -12,11 +12,9 @@ enum InventoryType {
   OUT
 }
 
-
-
 enum Role {
   DONOR // Donor
-  HOSPITAL //Hospital Entity
+  LAB //Laboratory Entity
   ORGANIZATION // Single Admin
 }
 
@@ -36,46 +34,45 @@ model User {
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
   donor         Donor?        @relation
-  hospital      Hospital?     @relation
+  laboratory    Laboratory?   @relation
   organization  Organization? @relation
 }
 
 model Donor {
-  id         String      @id @default(auto()) @map("_id") @db.ObjectId
-  name       String
-  email      String    @unique
-  address    String
-  bloodGroup String
-  phone      String?
-  Inventory  Inventory[] @relation("donor")
+  id           String        @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  email        String        @unique
+  address      String
+  bloodGroup   String
+  phone        String?
+  Inventory    Inventory[]   @relation("donor")
   appointments Appointment[]
-  user       User        @relation(fields: [userId], references: [id])
-  userId     String      @unique @db.ObjectId
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
+  user         User          @relation(fields: [userId], references: [id])
+  userId       String        @unique @db.ObjectId
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
 }
 
-model Hospital {
-  id            String      @id @default(auto()) @map("_id") @db.ObjectId
+model Laboratory {
+  id            String        @id @default(auto()) @map("_id") @db.ObjectId
   name          String
-  email         String     @unique
+  email         String        @unique
   address       String
   city          String
   state         String
-  licenseNumber String    @unique
+  licenseNumber String        @unique
   website       String?
   phone         String
-  Inventory     Inventory[] @relation("hospital")
+  Inventory     Inventory[]   @relation("laboratory")
   appointments  Appointment[]
-  user   User   @relation(fields: [userId], references: [id])
-  userId String @unique @db.ObjectId
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  
+  user          User          @relation(fields: [userId], references: [id])
+  userId        String        @unique @db.ObjectId
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
 }
 
 model Organization {
-  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  id        String      @id @default(auto()) @map("_id") @db.ObjectId
   inventory Inventory[] // One-to-many relationship 
   user      User        @relation(fields: [userId], references: [id])
   userId    String      @unique @db.ObjectId
@@ -90,24 +87,23 @@ model Inventory {
   organization   Organization  @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   organizationId String        @db.ObjectId
 
-  transactionDate DateTime  @default(now())
-  source          Donor?    @relation("donor", fields: [donorId], references: [id])
-  donorId         String?   @db.ObjectId
-  destination     Hospital? @relation("hospital", fields: [hospitalId], references: [id])
-  hospitalId      String?   @db.ObjectId
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
+  transactionDate DateTime    @default(now())
+  source          Donor?      @relation("donor", fields: [donorId], references: [id])
+  donorId         String?     @db.ObjectId
+  destination     Laboratory? @relation("laboratory", fields: [laboratoryId], references: [id])
+  laboratoryId    String?     @db.ObjectId
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
 }
 
-
 model Appointment {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  donor       Donor    @relation(fields: [donorId], references: [id])
-  donorId     String   @db.ObjectId
-  hospital    Hospital @relation(fields: [hospitalId], references: [id])
-  hospitalId  String   @db.ObjectId
-  scheduledAt DateTime
-  status      AppointmentStatus
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id           String            @id @default(auto()) @map("_id") @db.ObjectId
+  donor        Donor             @relation(fields: [donorId], references: [id])
+  donorId      String            @db.ObjectId
+  laboratory   Laboratory        @relation(fields: [laboratoryId], references: [id])
+  laboratoryId String            @db.ObjectId
+  scheduledAt  DateTime
+  status       AppointmentStatus
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
 }

@@ -1,14 +1,14 @@
 import { db } from "./db";
 
-export const getHospital = async (email: string) => {
+export const getLaboratory = async (email: string) => {
 	try {
-		const hospital = await db.hospital.findUnique({
+		const laboratory = await db.laboratory.findUnique({
 			where: {
 				email,
 			},
 		});
 
-		return hospital;
+		return laboratory;
 	} catch {
 		return null;
 	}
@@ -42,8 +42,6 @@ export const getOrganization = async (id: string) => {
 	}
 };
 
-
-
 export const getDonors = async () => {
 	try {
 		const donors = await db.donor.findMany();
@@ -53,16 +51,13 @@ export const getDonors = async () => {
 	}
 };
 
-export const getHospitals = async () => {
+export const getLaboratories = async () => {
 	try {
-		
-		const hospitals = await db.hospital.findMany();
-		console.log("Fetched hospitals:", hospitals);
-		return hospitals;
+		const laboratories = await db.laboratory.findMany();
+		console.log("Fetched laboratories:", laboratories);
+		return laboratories;
 	} catch (error) {
 		console.error("Error details:", error);
-		throw new Error("Failed to fetch hospitals.");
+		throw new Error("Failed to fetch laboratories.");
 	}
 };
-
-

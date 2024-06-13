@@ -17,7 +17,7 @@ export const donorSchema = z.object({
 		.max(50),
 });
 
-export const hospitalSchema = z.object({
+export const laboratorySchema = z.object({
 	name: z.string().min(3, "Name should be at least 3 characters"),
 	address: z.string().min(3, "Address should be at least 3 characters"),
 	city: z.string().min(3, "City should be at least 3 characters"),
@@ -40,9 +40,7 @@ export const BLOOD_GROUP_OPTIONS = [
 	"O+",
 	"O-",
 ];
-export const STATUS=[
-	
-]
+export const STATUS = [];
 
 export const inventorySchema = z.object({
 	inventoryType: z.enum(["IN", "OUT"], {
@@ -57,8 +55,4 @@ export const inventorySchema = z.object({
 	email: z.string().email({
 		message: "Invalid email address",
 	}),
-	
 });
-
-
-

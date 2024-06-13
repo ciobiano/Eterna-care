@@ -9,7 +9,7 @@ export const publicRoutes = ["/"];
  * These are the routes used for auth and they require authentication
  * @type {string[]}
  */
-export const authRoutes = ["/register/hospital", "/register/donor", "/login"];
+export const authRoutes = ["/register/laboratory", "/register/donor", "/login"];
 
 /**
  * These are apiAuthPrefix

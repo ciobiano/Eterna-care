@@ -10,7 +10,7 @@ import { AppointmentStatus } from "@prisma/client";
 export type AppointmentColumn = {
 	id: string;
 	donorId: string;
-	hospitalId: string;
+	laboratoryId: string;
 	scheduledAt: Date;
 	status: AppointmentStatus;
 	createdAt: Date;
@@ -29,7 +29,6 @@ export const columns: ColumnDef<AppointmentColumn>[] = [
 		accessorKey: "scheduled date",
 		header: "scheduled date",
 	},
-	
 
 	{
 		accessorKey: "createdAt",

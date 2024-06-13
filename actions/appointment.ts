@@ -1,44 +1,39 @@
-
-
 import { db } from "@/lib/db";
 import { AppointmentStatus } from "@prisma/client";
 
 export const createAppointment = async ({
 	donorId,
-    hospitalId,
-    scheduledAt,
+	laboratoryId,
+	scheduledAt,
 }: {
-    donorId: string;
-    hospitalId: string;
-    scheduledAt: Date;
+	donorId: string;
+	laboratoryId: string;
+	scheduledAt: Date;
 }) => {
+	const existingAppointment = await db.appointment.findFirst({
+		where: {
+			donorId,
+			laboratoryId,
+			scheduledAt,
+		},
+	});
 
-    const existingAppointment = await db.appointment.findFirst({
-        where: {
-            donorId,
-            hospitalId,
-            scheduledAt,
-        },
-    });
-
-    if (existingAppointment) {
-        return {
-            error: "❌ Appointment already exists",
-        };
-    }
-
-    
+	if (existingAppointment) {
+		return {
+			error: "❌ Appointment already exists",
+		};
+	}
 
 	await db.appointment.create({
 		data: {
 			donorId,
-			hospitalId,
+			laboratoryId,
 			scheduledAt,
 			status: AppointmentStatus.PENDING,
 		},
 	});
 
-    return{
-        success: "✅ Appointment has been scheduled",
-    }
+	return {
+		success: "✅ Appointment has been scheduled",
+	};
 };

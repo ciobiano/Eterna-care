@@ -9,7 +9,7 @@ const AppointmentClient = async () => {
 		appointments?.map((item: any) => ({
 			id: item.id,
 			donorId: item.donorId,
-			hospitalId: item.hospitalId,
+			laboratoryId: item.laboratoryId,
 			scheduledAt: item.scheduledAt,
 			status: item.status,
 			createdAt: item.createdAt,

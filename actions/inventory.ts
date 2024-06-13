@@ -3,7 +3,7 @@ import { db } from "@/lib/db";
 import { inventorySchema } from "@/schema";
 import { InventoryType, Prisma } from "@prisma/client";
 import { z } from "zod";
-import { getHospital, getDonor } from "@/lib/inventory";
+import { getLaboratory, getDonor } from "@/lib/inventory";
 import { auth } from "@/auth";
 
 async function getInventoryTotals(
@@ -55,7 +55,7 @@ export default async function InventoryInput(
 			return { error: "Organization ID is missing in session" };
 		}
 
-		let hospitalId: string | undefined;
+		let laboratoryId: string | undefined;
 		let donorId: string | undefined;
 
 		const totalIn = await getInventoryTotalByBloodGroup(
@@ -77,11 +77,11 @@ export default async function InventoryInput(
 					error: `Only ${availableQuantity} units of ${bloodGroup} blood available.`,
 				};
 			}
-			const hospital = await getHospital(email);
-			if (!hospital) {
-				return { error: "Hospital email not found" };
+			const laboratory = await getLaboratory(email);
+			if (!laboratory) {
+				return { error: "Laboratory email not found" };
 			}
-			hospitalId = hospital.id;
+			laboratoryId = laboratory.id;
 		} else if (inventoryType === "IN") {
 			const donor = await getDonor(email);
 			if (!donor) {
@@ -101,8 +101,8 @@ export default async function InventoryInput(
 						email,
 						organizationId,
 						donorId: inventoryType === InventoryType.IN ? donorId : undefined,
-						hospitalId:
-							inventoryType === InventoryType.OUT ? hospitalId : undefined,
+						laboratoryId:
+							inventoryType === InventoryType.OUT ? laboratoryId : undefined,
 					},
 				});
 				return inventory;
@@ -110,7 +110,6 @@ export default async function InventoryInput(
 		);
 
 		return { success: "Inventory entry created successfully." };
-		
 	} catch (error) {
 		return { error: "An error occurred while processing your request." };
 	}

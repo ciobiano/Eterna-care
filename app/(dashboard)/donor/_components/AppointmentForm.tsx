@@ -31,12 +31,12 @@ import {
 } from "@/components/ui/form";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { createAppointment } from "@/actions/appointment";
-import { getHospitals } from "@/lib/inventory";
+import { getLaboratories } from "@/lib/inventory";
 import { toast } from "@/components/ui/use-toast";
 
 // Define the AppointmentSchema using Zod
 const AppointmentSchema = z.object({
-	hospitalId: z.string().nonempty("Hospital is required"),
+	laboratoryId: z.string().nonempty("Laboratory is required"),
 	scheduledAt: z.date().refine((date) => date instanceof Date, {
 		message: "Date is required",
 	}),
@@ -45,8 +45,8 @@ const AppointmentSchema = z.object({
 // Define the form data type
 type FormData = z.infer<typeof AppointmentSchema>;
 
-// Define the hospital type
-interface Hospital {
+// Define the laboratory type
+interface Laboratory {
 	id: string;
 	name: string;
 }
@@ -66,13 +66,13 @@ const AppointmentRequestForm = ({ donorId }: { donorId: string }) => {
 		formState: { errors },
 	} = form;
 
-	const { data: hospitals, isLoading } = useQuery({
-		queryKey: ["hospitals"],
-		queryFn: getHospitals,
+	const { data: laboratories, isLoading } = useQuery({
+		queryKey: ["laboratories"],
+		queryFn: getLaboratories,
 	});
 
 	const onSubmit = (data: FormData) => {
-		const { hospitalId, scheduledAt } = data;
+		const { laboratoryId, scheduledAt } = data;
 
 		setError("");
 		setSuccess("");
@@ -80,7 +80,7 @@ const AppointmentRequestForm = ({ donorId }: { donorId: string }) => {
 		startTransition(() => {
 			createAppointment({
 				donorId,
-				hospitalId,
+				laboratoryId,
 				scheduledAt,
 			}).then((data) => {
 				setError(data?.error);
@@ -105,20 +105,20 @@ const AppointmentRequestForm = ({ donorId }: { donorId: string }) => {
 		<Form {...form}>
 			<form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
 				<FormField
-					name="hospitalId"
+					name="laboratoryId"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Hospital </FormLabel>
+							<FormLabel>Laboratory </FormLabel>
 							<Select onValueChange={field.onChange} value={field.value}>
 								<FormControl>
 									<SelectTrigger>
-										<SelectValue placeholder="Select a hospital" />
+										<SelectValue placeholder="Select a laboratory" />
 									</SelectTrigger>
 								</FormControl>
 								<SelectContent>
-									{hospitals?.map((hospital: Hospital) => (
-										<SelectItem key={hospital.id} value={hospital.id}>
-											{hospital.name}
+									{laboratories?.map((laboratory: Laboratory) => (
+										<SelectItem key={laboratory.id} value={laboratory.id}>
+											{laboratory.name}
 										</SelectItem>
 									))}
 								</SelectContent>

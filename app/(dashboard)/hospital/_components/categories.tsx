@@ -9,29 +9,28 @@ const Categories = () => {
 		{
 			icon: RxDashboard,
 			label: "Dashboard",
-			href: "/hospital",
+			href: "/laboratory",
 		},
 		{
 			icon: RxCalendar,
 			label: "Appointments",
-			href: "/hospital/appointment",
+			href: "/laboratory/appointment",
 		},
 		{
 			icon: RxPerson,
 			label: "Consultants",
-			href: "/hospital/consultant",
+			href: "/laboratory/consultant",
 		},
 		{
 			icon: RxPerson,
 			label: "Staff",
-			href: "/staff"
-
+			href: "/staff",
 		},
 		{
 			icon: RxPerson,
 			label: "Profile",
 			href: "/donor/profile",
-		}
+		},
 	];
 	return (
 		<Container>

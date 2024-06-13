@@ -1,6 +1,6 @@
 import { ColumnDef } from "@tanstack/react-table";
 
-export type HospitalColumn = {
+export type LaboratoryColumn = {
 	id: string;
 	name: string;
 	email: string;
@@ -8,11 +8,9 @@ export type HospitalColumn = {
 	city: string;
 	state: string;
 	phone: string;
-
-	
 };
 
-export const hospitalColumn: ColumnDef<HospitalColumn>[] = [
+export const laboratoryColumn: ColumnDef<LaboratoryColumn>[] = [
 	{
 		accessorKey: "name",
 		header: "Name",
@@ -34,8 +32,7 @@ export const hospitalColumn: ColumnDef<HospitalColumn>[] = [
 		header: "State",
 	},
 	{
-		accessorKey:"phone",
-		header:"Phone"
-
+		accessorKey: "phone",
+		header: "Phone",
 	},
 ];

@@ -1,12 +1,12 @@
-import { getDonors, getHospitals } from "@/lib/inventory";
-import { hospitalColumn, HospitalColumn } from "./hospitalColumns";
+import { getDonors, getLaboratories } from "@/lib/inventory";
+import { laboratoryColumn, LaboratoryColumn } from "./laboratoryColumns";
 import { DataTable } from "@/components/ui/data-table";
 
-const HospitalClient = async () => {
-	const hospitals = await getHospitals();
+const LaboratoryClient = async () => {
+	const laboratories = await getLaboratories();
 
-	const formattedDonors: HospitalColumn[] =
-		hospitals?.map((item: any) => ({
+	const formattedDonors: LaboratoryColumn[] =
+		laboratories?.map((item: any) => ({
 			id: item.id,
 			name: item.name,
 			email: item.email,
@@ -14,19 +14,17 @@ const HospitalClient = async () => {
 			city: item.city,
 			state: item.state,
 			phone: item.phone,
-
-			
 		})) ?? [];
 
-        return (
-					<div className="bg-white">
-						<DataTable
-							searchKey="email"
-							columns={hospitalColumn}
-							data={formattedDonors}
-						/>
-					</div>
-				);
+	return (
+		<div className="bg-white">
+			<DataTable
+				searchKey="email"
+				columns={laboratoryColumn}
+				data={formattedDonors}
+			/>
+		</div>
+	);
 };
 
-export default HospitalClient;
+export default LaboratoryClient;

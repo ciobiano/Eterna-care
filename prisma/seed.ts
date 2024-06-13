@@ -3,12 +3,11 @@ import * as bcrypt from "bcrypt";
 
 const prisma = new PrismaClient();
 
-const DEV_USER = "redcell reserve";
-const DEV_EMAIL = "admin@example.com"
+const DEV_USER = "Eternal Care";
+const DEV_EMAIL = "admin@example.com";
 const DEV_PASSWORD = "admin23456";
 
 async function main() {
-    
 	const hashedPassword = await bcrypt.hash(DEV_PASSWORD, 10);
 
 	const user = await prisma.user.create({
@@ -22,11 +21,9 @@ async function main() {
 
 	await prisma.organization.create({
 		data: {
-		
 			userId: user.id,
 		},
 	});
-
 
 	console.log(`Created user with id: ${user.id}`);
 }

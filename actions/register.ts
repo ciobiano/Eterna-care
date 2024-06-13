@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "@/lib/db";
-import { donorSchema, hospitalSchema } from "@/schema";
+import { donorSchema, laboratorySchema } from "@/schema";
 import { z } from "zod";
 import bcrypt from "bcryptjs";
 import { getUserByEmail } from "@/lib/user";
@@ -53,10 +53,10 @@ export const registerDonor = async (values: z.infer<typeof donorSchema>) => {
 	};
 };
 
-export const registerHospital = async (
-	values: z.infer<typeof hospitalSchema>
+export const registerLaboratory = async (
+	values: z.infer<typeof laboratorySchema>
 ) => {
-	const validatedFields = hospitalSchema.safeParse(values);
+	const validatedFields = laboratorySchema.safeParse(values);
 
 	if (!validatedFields.success) {
 		return {
@@ -78,11 +78,11 @@ export const registerHospital = async (
 			email,
 			name,
 			password: hashedPassword,
-			role: "HOSPITAL",
+			role: "LAB",
 		},
 	});
 
-	await db.hospital.create({
+	await db.laboratory.create({
 		data: {
 			name,
 			address,
@@ -99,5 +99,3 @@ export const registerHospital = async (
 		success: " ✅ you've successfully registered",
 	};
 };
-
-

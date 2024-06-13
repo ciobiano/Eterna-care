@@ -13,20 +13,20 @@ import {
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { hospitalSchema } from "@/schema";
+import { laboratorySchema } from "@/schema";
 import { toast } from "@/components/ui/use-toast";
-import { registerHospital } from "@/actions/register";
+import { registerLaboratory } from "@/actions/register";
 import { useState, useTransition } from "react";
 
-type Input = z.infer<typeof hospitalSchema>;
+type Input = z.infer<typeof laboratorySchema>;
 
-const HospitalRegForm = () => {
+const LaboratoryRegForm = () => {
 	const [error, setError] = useState<string | undefined>("");
 	const [success, setSuccess] = useState<string | undefined>("");
 	const [isPending, startTransition] = useTransition();
 
-	const form = useForm<z.infer<typeof hospitalSchema>>({
-		resolver: zodResolver(hospitalSchema),
+	const form = useForm<z.infer<typeof laboratorySchema>>({
+		resolver: zodResolver(laboratorySchema),
 		defaultValues: {
 			name: "",
 			email: "",
@@ -44,7 +44,7 @@ const HospitalRegForm = () => {
 		setSuccess("");
 
 		startTransition(() => {
-			registerHospital(values).then((data) => {
+			registerLaboratory(values).then((data) => {
 				setError(data?.error);
 				setSuccess(data?.success);
 
@@ -79,7 +79,7 @@ const HospitalRegForm = () => {
 								<FormControl>
 									<Input
 										disabled={isPending}
-										placeholder="Hospital Name"
+										placeholder="Laboratory Name"
 										{...field}
 									/>
 								</FormControl>
@@ -231,4 +231,4 @@ const HospitalRegForm = () => {
 	);
 };
 
-export default HospitalRegForm;
+export default LaboratoryRegForm;

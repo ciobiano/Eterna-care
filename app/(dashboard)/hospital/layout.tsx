@@ -11,7 +11,7 @@ interface RoleGateProps {
 
 export default async function DonorLayout({ children }: RoleGateProps) {
 	const role = await currentRole();
-	if (role !== Role.HOSPITAL) {
+	if (role !== Role.LAB) {
 		return <div>Error: Access denied</div>;
 	}
 

@@ -7,7 +7,7 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Card, CardContent } from "@/components/ui/card";
 import InventoryClient from "../../_components/InventoryTable/client";
 import DonorClient from "../../_components/donorTable/client";
-import HospitalClient from "../../_components/hospitaTable/client";
+import LaboratoryClient from "../../_components/hospitaTable/client";
 
 const InventoryPage = () => {
 	return (
@@ -17,7 +17,7 @@ const InventoryPage = () => {
 					<TabsList className="grid w-full max-w-80 bg-theme-foreground grid-cols-3">
 						<TabsTrigger value="inventory">Inventory</TabsTrigger>
 						<TabsTrigger value="donors">Donors</TabsTrigger>
-						<TabsTrigger value="hospitals">Hospitals</TabsTrigger>
+						<TabsTrigger value="laboratories">Laboratories</TabsTrigger>
 					</TabsList>
 					<div className="ml-auto flex items-center gap-2">
 						<Dialog>
@@ -36,28 +36,27 @@ const InventoryPage = () => {
 					</div>
 				</div>
 				<div className="mt-8">
-
-				<TabsContent value="inventory">
-					<Card x-chunk="dashboard-06-chunk-0">
-						<CardContent>
-							<InventoryClient />
-						</CardContent>
-					</Card>
-				</TabsContent>
-				<TabsContent value="donors">
-					<Card x-chunk="dashboard-06-chunk-0">
-						<CardContent>
-							<DonorClient />
-						</CardContent>
-					</Card>
-				</TabsContent>
-				<TabsContent value="hospitals">
-					<Card x-chunk="dashboard-06-chunk-0">
-						<CardContent>
-							<HospitalClient />
-						</CardContent>
-					</Card>
-				</TabsContent>
+					<TabsContent value="inventory">
+						<Card x-chunk="dashboard-06-chunk-0">
+							<CardContent>
+								<InventoryClient />
+							</CardContent>
+						</Card>
+					</TabsContent>
+					<TabsContent value="donors">
+						<Card x-chunk="dashboard-06-chunk-0">
+							<CardContent>
+								<DonorClient />
+							</CardContent>
+						</Card>
+					</TabsContent>
+					<TabsContent value="laboratories">
+						<Card x-chunk="dashboard-06-chunk-0">
+							<CardContent>
+								<LaboratoryClient />
+							</CardContent>
+						</Card>
+					</TabsContent>
 				</div>
 			</Tabs>
 		</main>

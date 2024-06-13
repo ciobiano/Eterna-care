@@ -36,7 +36,9 @@ export const columns: ColumnDef<InventoryColumn>[] = [
 		id: "ref",
 		header: "Reference",
 		cell: ({ row }) => (
-			<span>{row.original.inventoryType === "OUT" ? "Hospital" : "Donor"}</span>
+			<span>
+				{row.original.inventoryType === "OUT" ? "Laboratory" : "Donor"}
+			</span>
 		),
 	},
 	{
@@ -56,9 +58,6 @@ export const columns: ColumnDef<InventoryColumn>[] = [
 		cell: ({ row }) => (
 			<span>{format(new Date(row.original.createdAt), "dd-MMM-yyyy")}</span>
 		),
-	
-		
-		
 	},
 	{
 		id: "action",
