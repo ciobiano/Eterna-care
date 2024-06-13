@@ -9,17 +9,17 @@ const Categories = () => {
 		{
 			icon: RxDashboard,
 			label: "Dashboard",
-			href: "/laboratory",
+			href: "/lab",
 		},
 		{
 			icon: RxCalendar,
 			label: "Appointments",
-			href: "/laboratory/appointment",
+			href: "/lab/appointment",
 		},
 		{
 			icon: RxPerson,
 			label: "Consultants",
-			href: "/laboratory/consultant",
+			href: "/lab/consultant",
 		},
 		{
 			icon: RxPerson,

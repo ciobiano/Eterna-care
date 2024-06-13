@@ -22,7 +22,7 @@ export default async function DashboardLayout({
 							href="/"
 							className="flex-row cursor-pointer items-center gap-2 text-base font-semibold"
 						>
-							RedCell Reserver
+							Eterna Care Medical Institute
 							<span className="flex  font-semibold text-xs ">
 								{session?.user.role}
 							</span>

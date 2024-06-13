@@ -12,7 +12,7 @@ const NavBar = () => {
 					className="flex items-center gap-2 text-sm font-semibold"
 				>
 					<Logo size={32} />
-					RedCell Reserver
+					Eterna Care Medical Institute
 				</Link>
 				<nav className="  text-sm ">
 					<ul className="flex gap-8">
