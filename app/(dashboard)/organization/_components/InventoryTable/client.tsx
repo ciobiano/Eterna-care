@@ -1,12 +1,9 @@
-import { auth } from "@/auth";
 import { columns, InventoryColumn } from "./column";
 import { DataTable } from "@/components/ui/data-table";
 import { getInventories } from "@/actions/getInventories";
 
 const InventoryClient = async () => {
 	const inventories = await getInventories();
-
-	
 
 	const formattedProducts: InventoryColumn[] =
 		inventories?.map((item: any) => ({
@@ -15,7 +12,7 @@ const InventoryClient = async () => {
 			quantity: item.quantity,
 			inventoryType: item.inventoryType,
 			bloodGroup: item.bloodGroup,
-			createdAt: (item.createdAt)
+			createdAt: item.createdAt,
 		})) ?? [];
 
 	return (

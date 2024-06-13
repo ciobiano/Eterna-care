@@ -1,4 +1,3 @@
-
 import { db } from "./db";
 
 export const getHospital = async (email: string) => {
@@ -56,9 +55,14 @@ export const getDonors = async () => {
 
 export const getHospitals = async () => {
 	try {
+		
 		const hospitals = await db.hospital.findMany();
+		console.log("Fetched hospitals:", hospitals);
 		return hospitals;
 	} catch (error) {
+		console.error("Error details:", error);
 		throw new Error("Failed to fetch hospitals.");
 	}
 };
+
+
