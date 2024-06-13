@@ -1,8 +1,9 @@
 import Heading from "@/components/heading";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import React from "react";
-import TabDropDown from "../../_components/tabDropDown";
+import TabDropDown from "../../../../../components/tabDropDown";
 import { Card, CardContent } from "@/components/ui/card";
+import AppointmentClient from "../../_components/appointments/client";
 
 const page = () => {
 	return (
@@ -30,7 +31,7 @@ const page = () => {
 						<TabsContent value="all">
 							<Card x-chunk="dashboard-06-chunk-0 ">
 								<CardContent>
-                                    all contents
+                                    <AppointmentClient/>
                                 </CardContent>
 							</Card>
 						</TabsContent>
