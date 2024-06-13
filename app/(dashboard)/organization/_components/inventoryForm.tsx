@@ -23,7 +23,7 @@ import {
 import { BLOOD_GROUP_OPTIONS, inventorySchema } from "@/schema";
 import { toast } from "@/components/ui/use-toast";
 import { InventoryType } from "@prisma/client";
-import {  useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useCurrentRole } from "@/hooks/use-current-role";
 import inventoryInput from "@/actions/inventory";
 
@@ -76,7 +76,6 @@ const InventoryForm = ({}) => {
 						setShowForm(false);
 						setTimeout(() => {
 							router.refresh();
-							
 						}, 3000); // Redirect after 3 seconds
 					}
 				})
