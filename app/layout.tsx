@@ -20,11 +20,10 @@ export default function RootLayout({
 		<html lang="en">
 			<body className={Mont.className}>
 				<TanstackProvider>
-				<div>
-
-				{children}
-				<Toaster />
-				</div>
+					<div>
+						{children}
+						<Toaster />
+					</div>
 				</TanstackProvider>
 			</body>
 		</html>
