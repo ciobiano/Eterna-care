@@ -5,7 +5,7 @@ import { Modal } from "@/components/ui/modal";
 import AppointmentRequestForm from "../../_components/AppointmentForm";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import AppointmentClient from "../../_components/appointments/client";
-import AppointmentModal from "../../_components/appointmentModal";
+import AppointmentModal from "../../_components/appointments/appointmentModal";
 
 const Page = () => {
 	return (
