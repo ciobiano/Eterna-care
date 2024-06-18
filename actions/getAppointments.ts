@@ -15,9 +15,11 @@ export const getAppointments = async () => {
 	try {
 		const appointments = await db.appointment.findMany({
 			where: {
-				laboratoryId: userId,
+				donorId: userId,
+				
 			},
 		});
+		console.log(appointments);
 		return appointments;
 	} catch (error) {
 		throw new Error("Failed to fetch appointment data.");

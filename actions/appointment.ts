@@ -1,15 +1,25 @@
+"use server";
+
+import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { AppointmentStatus } from "@prisma/client";
 
 export const createAppointment = async ({
-	donorId,
 	laboratoryId,
 	scheduledAt,
 }: {
-	donorId: string;
 	laboratoryId: string;
 	scheduledAt: Date;
 }) => {
+	const user = await currentUser();
+	if (!user || !user.id) {
+		return {
+			error: "❌ Access denied",
+		};
+	}
+
+	const donorId = user.id;
+
 	const existingAppointment = await db.appointment.findFirst({
 		where: {
 			donorId,
