@@ -10,7 +10,7 @@ const AppointmentClient = async () => {
 		appointments?.map((item) => ({
 			id: item.id,
 			donorId: item.donorId,
-			laboratoryId: item.laboratoryId,
+			name: item.laboratory?.name ?? "",
 			scheduledAt: item.scheduledAt,
 			status: item.status,
 			createdAt: item.createdAt,

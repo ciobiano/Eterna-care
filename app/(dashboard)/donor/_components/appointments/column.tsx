@@ -10,26 +10,50 @@ import { Button } from "@/components/ui/button";
 export type AppointmentColumn = {
 	id: string;
 	donorId: string;
-	laboratoryId: string;
+	name: string;
 	scheduledAt: Date;
 	status: AppointmentStatus;
 	createdAt: Date;
 };
 
+const getStatusClass = (status: AppointmentStatus) => {
+	const statusClasses: { [key in AppointmentStatus]: string } = {
+		PENDING: "border-transparent bg-[#FFEFC6] text-yellow-600 font-semibold",
+		CONFIRMED: "border-transparent bg-[#CFFFE5] text-green-600 font-semibold",
+		CANCELLED: "border-transparent bg-[#FFD6D6] text-red-600 font-semibold",
+		SCREENED: "border-transparent bg-[##35A458] text-white font-semibold",
+	};
+	return statusClasses[status] || "border-gray-500";
+};
+
 export const columns: ColumnDef<AppointmentColumn>[] = [
 	{
 		accessorKey: "name",
-		header: "Name",
-	},
-	{
-		accessorKey: "status",
-		header: "Status",
+		header: "Laboratory",
+		cell: ({ row }) => <span>{row.original.name}</span>,
 	},
 	{
 		accessorKey: "scheduledAt",
-		header: "scheduled date",
+		header: "Scheduled date",
+		cell: ({ row }) => (
+			<span>{format(new Date(row.original.scheduledAt), "dd-MMM-yyyy")}</span>
+		),
 	},
 
+	{
+		accessorKey: "status",
+		header: "Status",
+		cell: ({ row }) => {
+			const statusClass = getStatusClass(row.original.status);
+			return (
+				<span
+					className={`border-2 rounded-[10rem] p-1.5 text-xs ${statusClass}`}
+				>
+					{row.original.status.toLowerCase()}
+				</span>
+			);
+		},
+	},
 	{
 		accessorKey: "createdAt",
 
