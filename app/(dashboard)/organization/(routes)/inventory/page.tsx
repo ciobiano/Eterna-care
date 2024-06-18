@@ -7,7 +7,7 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Card, CardContent } from "@/components/ui/card";
 import InventoryClient from "../../_components/InventoryTable/client";
 import DonorClient from "../../_components/donorTable/client";
-import LaboratoryClient from "../../_components/hospitaTable/client";
+import LaboratoryClient from "../../_components/laboratoryTable/client";
 
 const InventoryPage = () => {
 	return (

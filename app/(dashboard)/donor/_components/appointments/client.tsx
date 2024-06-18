@@ -4,9 +4,10 @@ import { DataTable } from "@/components/ui/data-table";
 
 const AppointmentClient = async () => {
 	const appointments = await getAppointments();
+	console.log(appointments);
 
 	const formattedProducts: AppointmentColumn[] =
-		appointments?.map((item: any) => ({
+		appointments?.map((item) => ({
 			id: item.id,
 			donorId: item.donorId,
 			laboratoryId: item.laboratoryId,
@@ -17,8 +18,9 @@ const AppointmentClient = async () => {
 
 	return (
 		
+		
 		<div className="bg-white">
-			<DataTable searchKey="email" columns={columns} data={formattedProducts} />
+			<DataTable searchKey="" showSearch={false} columns={columns} data={formattedProducts} />
 		</div>
 	);
 };

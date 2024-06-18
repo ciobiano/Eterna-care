@@ -1,12 +1,11 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 
 import { format } from "date-fns";
 import CellAction from "./cell-action";
 import { AppointmentStatus } from "@prisma/client";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Button } from "@/components/ui/button";
 
 export type AppointmentColumn = {
 	id: string;
@@ -19,15 +18,15 @@ export type AppointmentColumn = {
 
 export const columns: ColumnDef<AppointmentColumn>[] = [
 	{
-		accessorKey: "Name",
+		accessorKey: "name",
 		header: "Name",
 	},
 	{
-		accessorKey: "Status",
+		accessorKey: "status",
 		header: "Status",
 	},
 	{
-		accessorKey: "scheduled date",
+		accessorKey: "scheduledAt",
 		header: "scheduled date",
 	},
 
@@ -51,6 +50,6 @@ export const columns: ColumnDef<AppointmentColumn>[] = [
 	},
 	{
 		id: "action",
-		cell: ({ row }) => <CellAction data={row.original} />
+		cell: ({ row }) => <CellAction data={row.original} />,
 	},
 ];

@@ -1,6 +1,7 @@
 import { getDonors, getLaboratories } from "@/lib/inventory";
-import { laboratoryColumn, LaboratoryColumn } from "./laboratoryColumns";
+
 import { DataTable } from "@/components/ui/data-table";
+import { laboratoryColumn, LaboratoryColumn } from "./laboratoryColumns";
 
 const LaboratoryClient = async () => {
 	const laboratories = await getLaboratories();

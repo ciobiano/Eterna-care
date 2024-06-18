@@ -1,4 +1,3 @@
-import Heading from "@/components/heading";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import React from "react";
 import TabDropDown from "../../../../../components/tabDropDown";
@@ -31,8 +30,8 @@ const page = () => {
 						<TabsContent value="all">
 							<Card x-chunk="dashboard-06-chunk-0 ">
 								<CardContent>
-                                    <AppointmentClient/>
-                                </CardContent>
+									<AppointmentClient />
+								</CardContent>
 							</Card>
 						</TabsContent>
 					</Tabs>

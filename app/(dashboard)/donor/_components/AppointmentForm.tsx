@@ -33,6 +33,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { createAppointment } from "@/actions/appointment";
 import { getLaboratories } from "@/lib/inventory";
 import { toast } from "@/components/ui/use-toast";
+import { getLabs } from "@/actions/getLabs";
 
 // Define the AppointmentSchema using Zod
 const AppointmentSchema = z.object({
@@ -42,16 +43,9 @@ const AppointmentSchema = z.object({
 	}),
 });
 
-// Define the form data type
 type FormData = z.infer<typeof AppointmentSchema>;
 
-// Define the laboratory type
-interface Laboratory {
-	id: string;
-	name: string;
-}
-
-const AppointmentRequestForm = ({ donorId }: { donorId: string }) => {
+const AppointmentRequestForm = () => {
 	const [error, setError] = useState<string | undefined>("");
 	const [success, setSuccess] = useState<string | undefined>("");
 	const [isPending, startTransition] = useTransition();
@@ -63,12 +57,16 @@ const AppointmentRequestForm = ({ donorId }: { donorId: string }) => {
 
 	const {
 		handleSubmit,
+		setValue,
 		formState: { errors },
 	} = form;
 
-	const { data: laboratories, isLoading } = useQuery({
-		queryKey: ["laboratories"],
-		queryFn: getLaboratories,
+	const { data } = useQuery({
+		queryKey: ["getLabs"], // Provide a valid QueryKey value
+		queryFn: async () => {
+			const data = await getLabs();
+			return data;
+		},
 	});
 
 	const onSubmit = (data: FormData) => {
@@ -79,7 +77,6 @@ const AppointmentRequestForm = ({ donorId }: { donorId: string }) => {
 
 		startTransition(() => {
 			createAppointment({
-				donorId,
 				laboratoryId,
 				scheduledAt,
 			}).then((data) => {
@@ -108,7 +105,7 @@ const AppointmentRequestForm = ({ donorId }: { donorId: string }) => {
 					name="laboratoryId"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Laboratory </FormLabel>
+							<FormLabel>Laboratory</FormLabel>
 							<Select onValueChange={field.onChange} value={field.value}>
 								<FormControl>
 									<SelectTrigger>
@@ -116,7 +113,7 @@ const AppointmentRequestForm = ({ donorId }: { donorId: string }) => {
 									</SelectTrigger>
 								</FormControl>
 								<SelectContent>
-									{laboratories?.map((laboratory: Laboratory) => (
+									{data?.map((laboratory) => (
 										<SelectItem key={laboratory.id} value={laboratory.id}>
 											{laboratory.name}
 										</SelectItem>
@@ -127,13 +124,12 @@ const AppointmentRequestForm = ({ donorId }: { donorId: string }) => {
 						</FormItem>
 					)}
 				/>
-
 				<FormField
 					control={form.control}
 					name="scheduledAt"
 					render={({ field }) => (
 						<FormItem className="flex flex-col">
-							<FormLabel>Schedule Date</FormLabel>
+							<FormLabel> Test Date </FormLabel>
 							<Popover>
 								<PopoverTrigger asChild>
 									<FormControl>
@@ -153,31 +149,19 @@ const AppointmentRequestForm = ({ donorId }: { donorId: string }) => {
 										</Button>
 									</FormControl>
 								</PopoverTrigger>
-								<PopoverContent className="flex w-auto flex-col space-y-2 p-2">
-									<Select
-										onValueChange={(value) =>
-											setDate(addDays(new Date(), parseInt(value)))
+								<PopoverContent className="w-auto p-0" align="start">
+									<Calendar
+										mode="single"
+										selected={field.value}
+										onSelect={field.onChange}
+										disabled={
+											(date) => date <= new Date() // Disable past dates
 										}
-									>
-										<SelectTrigger>
-											<SelectValue placeholder="Select" />
-										</SelectTrigger>
-										<SelectContent position="popper">
-											<SelectItem value="0">Today</SelectItem>
-											<SelectItem value="1">Tomorrow</SelectItem>
-											<SelectItem value="3">In 3 days</SelectItem>
-											<SelectItem value="7">In a week</SelectItem>
-										</SelectContent>
-									</Select>
-									<div className="rounded-md border">
-										<Calendar
-											mode="single"
-											selected={date}
-											onSelect={setDate}
-										/>
-									</div>
+										initialFocus
+									/>
 								</PopoverContent>
 							</Popover>
+
 							<FormMessage />
 						</FormItem>
 					)}
