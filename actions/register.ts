@@ -42,7 +42,7 @@ export const registerDonor = async (values: z.infer<typeof donorSchema>) => {
 			address,
 			phone,
 			bloodGroup,
-			userId: newUser.id,
+			id: newUser.id,
 		},
 	});
 
@@ -91,7 +91,7 @@ export const registerLaboratory = async (
 			licenseNumber,
 			city,
 			state,
-			userId: newUser.id,
+			id: newUser.id,
 		},
 	});
 

@@ -1,13 +1,17 @@
-import { getAppointments } from "@/actions/getAppointments";
+import { getAppointments, getAppointmentsByLab } from "@/actions/getAppointments";
 import { AppointmentColumn, columns } from "./column";
 import { DataTable } from "@/components/ui/data-table";
 
 const AppointmentClient = async () => {
-	const appointments = await getAppointments();
+	const appointments = await getAppointmentsByLab();
+
+
 
 	const formattedProducts: AppointmentColumn[] =
-		appointments?.map((item: any) => ({
+		appointments?.map((item) => ({
 			id: item.id,
+			name: item.donor?.name ?? "",
+			email:item.donor?.email ?? "",
 			donorId: item.donorId,
 			laboratoryId: item.laboratoryId,
 			scheduledAt: item.scheduledAt,
@@ -18,7 +22,7 @@ const AppointmentClient = async () => {
 	return (
 		
 		<div className="bg-white">
-			<DataTable searchKey="email" columns={columns} data={formattedProducts} />
+			<DataTable searchKey="name"  columns={columns} data={formattedProducts} />
 		</div>
 	);
 };

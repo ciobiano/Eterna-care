@@ -1,9 +1,9 @@
 "use client";
 
-import { addDays, format } from "date-fns";
+import { format } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
-import { useEffect, useState, useTransition } from "react";
-import { useForm, FormProvider, Controller } from "react-hook-form";
+import {  useState, useTransition } from "react";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { cn } from "@/lib/utils";
@@ -31,7 +31,6 @@ import {
 } from "@/components/ui/form";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { createAppointment } from "@/actions/appointment";
-import { getLaboratories } from "@/lib/inventory";
 import { toast } from "@/components/ui/use-toast";
 import { getLabs } from "@/actions/getLabs";
 import { useRouter } from "next/navigation";
@@ -53,10 +52,8 @@ interface AppointmentRequestFormProps {
 const AppointmentRequestForm: React.FC<AppointmentRequestFormProps> = ({
 	onSuccess,
 }) => {
-	const [error, setError] = useState<string | undefined>("");
 	const [success, setSuccess] = useState<string | undefined>("");
 	const [isPending, startTransition] = useTransition();
-	const [date, setDate] = useState<Date>();
 
 	const router = useRouter();
 
@@ -66,7 +63,6 @@ const AppointmentRequestForm: React.FC<AppointmentRequestFormProps> = ({
 
 	const {
 		handleSubmit,
-		setValue,
 		formState: { errors },
 	} = form;
 
@@ -84,7 +80,7 @@ const AppointmentRequestForm: React.FC<AppointmentRequestFormProps> = ({
 			onSuccess();
 			toast({
 				title: success,
-				description: " Appointment successfully created.",
+				description: "✅ Appointment successfully created.",
 			});
 			router.refresh();
 		},

@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { Copy, MoreHorizontal, Pencil, Trash } from "lucide-react";
-import {  useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { AlertModal } from "@/components/modal/alert-modal";
@@ -35,10 +35,10 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
 
 	const onDelete = async () => {
 		try {
-			 setLoading(true);
-				await deleteInventory({ id: data.id });
-				toast({ title: "Inventory deleted" });
-				router.refresh();
+			setLoading(true);
+			await deleteInventory({ id: data.id });
+			toast({ title: "Inventory deleted" });
+			router.refresh();
 		} catch (error) {
 			toast({
 				title: "Error",

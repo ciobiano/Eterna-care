@@ -48,9 +48,6 @@ const InventoryForm = ({}) => {
 		},
 	});
 
-	const { register, handleSubmit, watch } = form;
-
-	const inventoryType = form.watch("inventoryType");
 
 	async function onSubmit(values: Input) {
 		setIsLoading(true);

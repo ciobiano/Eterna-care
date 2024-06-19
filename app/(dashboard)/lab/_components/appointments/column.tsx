@@ -6,10 +6,12 @@ import { ArrowUpDown } from "lucide-react";
 import { format } from "date-fns";
 import CellAction from "./cell-action";
 import { AppointmentStatus } from "@prisma/client";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
 
 export type AppointmentColumn = {
 	id: string;
+	name: string;
+	email: string;
 	donorId: string;
 	laboratoryId: string;
 	scheduledAt: Date;
@@ -17,20 +19,45 @@ export type AppointmentColumn = {
 	createdAt: Date;
 };
 
+const getStatusClass = (status: AppointmentStatus) => {
+	const statusClasses: { [key in AppointmentStatus]: string } = {
+		PENDING: "border-transparent bg-[#FFEFC6] text-yellow-600 font-semibold",
+		CONFIRMED: "border-transparent bg-[#CFFFE5] text-green-600 font-semibold",
+		CANCELLED: "border-transparent bg-[#FFD6D6] text-red-600 font-semibold",
+		SCREENED: "border-transparent bg-[##35A458] text-white font-semibold",
+	};
+	return statusClasses[status] || "border-gray-500";
+};
+
+
 export const columns: ColumnDef<AppointmentColumn>[] = [
 	{
-		accessorKey: "Name",
+		accessorKey: "name",
 		header: "Name",
 	},
+
 	{
-		accessorKey: "Status",
-		header: "Status",
-	},
-	{
-		accessorKey: "scheduled date",
-		header: "scheduled date",
+		accessorKey: "scheduledAt",
+		header: "Scheduled date",
+		cell: ({ row }) => (
+			<span>{format(new Date(row.original.scheduledAt), "dd-MMM-yyyy")}</span>
+		),
 	},
 
+	{
+		accessorKey: "status",
+		header: "Status",
+		cell: ({ row }) => {
+			const statusClass = getStatusClass(row.original.status);
+			return (
+				<span
+					className={`border-2 rounded-[10rem] p-1.5 text-xs ${statusClass}`}
+				>
+					{row.original.status.toLowerCase()}
+				</span>
+			);
+		},
+	},
 	{
 		accessorKey: "createdAt",
 
@@ -51,6 +78,6 @@ export const columns: ColumnDef<AppointmentColumn>[] = [
 	},
 	{
 		id: "action",
-		cell: ({ row }) => <CellAction data={row.original} />
+		cell: ({ row }) => <CellAction data={row.original} />,
 	},
 ];

@@ -56,3 +56,22 @@ export const inventorySchema = z.object({
 		message: "Invalid email address",
 	}),
 });
+
+export const ProfileSchema = z.object({
+	name: z.string().min(3, "First name is required"),
+	email: z.string().email("Email is required"),
+	phone: z.string().min(9, "Phone number is required"),
+	address: z.string().min(5, "Address is required"),
+	bloodGroup: z.string().refine((val) => BLOOD_GROUP_OPTIONS.includes(val), {
+		message: "Invalid blood group",
+	}),
+	dateOfBirth: z.date().refine((date) => date instanceof Date, {
+		message: "Date of birth is required",
+	}),
+	nextOfKin: z.string().min(3, "Next of kin is required").optional(),
+	nextOfKinPhone: z.string().min(9, "Next of kin phone is required").optional(),
+
+	description: z.string().min(5, "Description is required").max(120,
+		"Description should be at most 120 characters"
+	).optional(),
+});

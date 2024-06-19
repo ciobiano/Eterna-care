@@ -1,7 +1,6 @@
 "use client";
 
 import { background, notification1, notification2 } from "@/assets";
-import Heading from "@/components/heading";
 import NavBar from "@/components/navBar/nav";
 import Notification from "@/components/notification";
 import { Button } from "@/components/ui/button";
@@ -9,6 +8,7 @@ import ImageGallery from "@/components/imageGallery";
 import SearchBox from "../components/navBar/searchBox";
 import Image from "next/image";
 import FeedBack from "@/components/feedback";
+import { Heading } from "@/components/heading";
 
 export default function Home() {
 	return (

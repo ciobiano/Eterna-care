@@ -39,7 +39,7 @@ export const createAppointment = async ({
 			donorId,
 			laboratoryId,
 			scheduledAt,
-			status: AppointmentStatus.CONFIRMED,
+			status: AppointmentStatus.PENDING,
 		},
 	});
 

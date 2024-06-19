@@ -27,6 +27,7 @@ enum AppointmentStatus {
 
 model User {
   id            String        @id @default(auto()) @map("_id") @db.ObjectId
+  
   name          String
   email         String        @unique
   emailVerified DateTime?
@@ -48,8 +49,7 @@ model Donor {
   phone        String?
   Inventory    Inventory[]   @relation("donor")
   appointments Appointment[]
-  user         User          @relation(fields: [userId], references: [id])
-  userId       String        @unique @db.ObjectId
+  user         User          @relation(fields: [id], references: [id])
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
 }
@@ -66,8 +66,7 @@ model Laboratory {
   phone         String
   Inventory     Inventory[]   @relation("laboratory")
   appointments  Appointment[]
-  user          User          @relation(fields: [userId], references: [id])
-  userId        String        @unique @db.ObjectId
+  user          User          @relation(fields: [id], references: [id])
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
 }
@@ -75,8 +74,9 @@ model Laboratory {
 model Organization {
   id        String      @id @default(auto()) @map("_id") @db.ObjectId
   inventory Inventory[] // One-to-many relationship 
-  user      User        @relation(fields: [userId], references: [id])
-  userId    String      @unique @db.ObjectId
+  user      User        @relation(fields: [id], references: [id])
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
 }
 
 model Inventory {

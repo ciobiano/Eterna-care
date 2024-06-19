@@ -8,7 +8,7 @@ interface HeadingProps {
 	center?: boolean;
 }
 
-const Heading: React.FC<HeadingProps> = ({
+export const Heading: React.FC<HeadingProps> = ({
 	title,
 	subtitle,
 	center,
@@ -37,4 +37,19 @@ const Heading: React.FC<HeadingProps> = ({
 	);
 };
 
-export default Heading;
+export const SecondHeading: React.FC<HeadingProps> = ({
+	title,
+	center,
+	description,
+}) => {
+	return (
+		<div className={center ? "text-center" : "text-start"}>
+			<div className="text-lg leading-tight text-primary font-normal max-w-[600px]">
+				{title}
+			</div>
+			<div className="font-medium text-neutral-500 text-sm mt-2">
+				{description}
+			</div>
+		</div>
+	);
+};

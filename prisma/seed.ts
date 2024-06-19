@@ -21,7 +21,7 @@ async function main() {
 
 	await prisma.organization.create({
 		data: {
-			userId: user.id,
+			id: user.id,
 		},
 	});
 
