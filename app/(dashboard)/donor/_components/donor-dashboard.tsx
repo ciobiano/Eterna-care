@@ -2,9 +2,23 @@ import { Button } from "@/components/ui/button";
 import React from "react";
 import Image from "next/image";
 import { avatarBillboard, avatarBillboard2 } from "@/assets";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardHeader,
+	CardTitle,
+} from "@/components/ui/card";
 import { Activity, CreditCard, DollarSign, Users } from "lucide-react";
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+	Table,
+	TableBody,
+	TableCaption,
+	TableCell,
+	TableHead,
+	TableHeader,
+	TableRow,
+} from "@/components/ui/table";
 
 const cardData = [
 	{
@@ -32,7 +46,7 @@ const DonorDashboard = () => {
 					<h1 className="text-sm">Welcome Ralph</h1>
 					<p className="text-2xl max-w-96 font-semibold mt-4">
 						Are you ready to ensure your health is in prime condition for
-						donation? Check your eligibility now
+						donation? <br />Check your eligibility now
 					</p>
 					<Button className=" mt-8 ">Contact us</Button>
 				</div>
@@ -47,7 +61,7 @@ const DonorDashboard = () => {
 					/>
 				</div>
 			</div>
-			<div className="grid gap-2 md:grid-cols-2 md:gap-8 lg:grid-cols-3 mt-6 w-full max-w-3xl items-center justify-center ">
+			<div className="grid gap-2 md:grid-cols-2 md:gap-8 lg:grid-cols-3 mt-6 w-full max-w-3xl mx-auto items-center justify-center ">
 				{cardData.map((card, index) => (
 					<div
 						key={index}
@@ -63,7 +77,7 @@ const DonorDashboard = () => {
 					</div>
 				))}
 			</div>
-			<div className="mt-8 w-full max-w-3xl ">
+			<div className="mt-8 w-full max-w-3xl mx-auto ">
 				<Card>
 					<CardHeader>
 						<CardTitle>Recent Activity</CardTitle>
@@ -77,16 +91,27 @@ const DonorDashboard = () => {
 								<TableRow>
 									<TableHead className="w-[100px]">Invoice</TableHead>
 									<TableHead>Status</TableHead>
-									<TableHead>Method</TableHead>
-									<TableHead className="text-right">Amount</TableHead>
+									<TableHead>Scheduled Date</TableHead>
+									<TableHead className="text-right">
+
+									</TableHead>
 								</TableRow>
 							</TableHeader>
 							<TableBody>
 								<TableRow>
 									<TableCell className="font-medium">INV001</TableCell>
-									<TableCell>Paid</TableCell>
-									<TableCell>Credit Card</TableCell>
-									<TableCell className="text-right">$250.00</TableCell>
+									<TableCell>
+										<span className="border-2 rounded-[10rem] p-1.5 text-xs border-transparent bg-[#CFFFE5] text-green-600 font-semibold">
+											Confirmed
+
+										</span>
+									</TableCell>
+									<TableCell>
+										<span>12th May 12:50 PM  </span>
+									</TableCell>
+									<TableCell className="text-right">
+										<Button variant="ghost">View</Button>
+									</TableCell>
 								</TableRow>
 							</TableBody>
 						</Table>

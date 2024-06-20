@@ -12,6 +12,8 @@ import background from "@/assets/notification/background.png";
 import  avatarBillboard from "@/assets/avatar/_ad547a50-cd3b-42f0-9e5e-beee5545743e.png"
 import  avatarBillboard2 from "@/assets/avatar/_d1f8754a-2e2d-4176-9113-00ea7666708c.png"
 
+import AdvertBoard from "@/assets/avatar/5c32431baf779a2837ff293834dcce36.png";
+
 
 
 
@@ -30,5 +32,7 @@ export {
     gallery4,
     background,
     avatarBillboard,
-    avatarBillboard2
+    avatarBillboard2,
+    AdvertBoard
+
 }
