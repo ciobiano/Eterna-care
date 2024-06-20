@@ -13,7 +13,7 @@ export function CalendarBox() {
 			mode="single"
 			selected={date}
 			onSelect={setDate}
-			className="rounded-xl border shadow-md bg-white"
+			className="text-white bg-[#242424] rounded-lg "
 		/>
 	);
 }

@@ -27,7 +27,7 @@ const cardData = [
 const DonorDashboard = () => {
 	return (
 		<div>
-			<div className="flex w-full max-w-3xl  h-72   bg-destructive-secondary rounded-lg  ">
+			<div className="flex w-full max-w-3xl mx-auto  h-72   bg-destructive-secondary rounded-lg  ">
 				<div className=" max-w-92 m-6 items-center justify-center   text-white">
 					<h1 className="text-sm">Welcome Ralph</h1>
 					<p className="text-2xl max-w-96 font-semibold mt-4">
