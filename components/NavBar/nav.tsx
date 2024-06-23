@@ -2,6 +2,7 @@ import Link from "next/link";
 import React from "react";
 import Logo from "../Logo";
 import SearchBox from "./searchBox";
+import MainNav from "./mainNav";
 
 const NavBar = () => {
 	return (
@@ -14,24 +15,7 @@ const NavBar = () => {
 					<Logo size={32} />
 					Eterna Care Medical Institute
 				</Link>
-				<nav className="  text-sm ">
-					<ul className="flex gap-8">
-						<li>
-							<Link href={"/"}>Donation</Link>
-						</li>
-						<li>
-							<Link href={"/"}>DNA </Link>
-						</li>
-						<li>
-							<Link href={"/"}>Appointment</Link>
-						</li>
-						<li>
-							<Link className="hidden lg:flex" href={"/"}>
-								FAQ
-							</Link>
-						</li>
-					</ul>
-				</nav>
+				<MainNav />
 			</header>
 		</div>
 	);
