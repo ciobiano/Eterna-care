@@ -1,4 +1,3 @@
-"use client";
 
 import { background, notification1, notification2 } from "@/assets";
 import NavBar from "@/components/navBar/nav";
