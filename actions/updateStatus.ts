@@ -22,6 +22,7 @@ export async function updateAppointmentStatus({
 	// Fetch the appointment
 	const appointment = await db.appointment.findUnique({
 		where: { id: appointmentId },
+		
 	});
 
 	if (!appointment) {
@@ -40,5 +41,7 @@ export async function updateAppointmentStatus({
 	return await db.appointment.update({
 		where: { id: appointmentId },
 		data: { status },
+		
+
 	});
 }
