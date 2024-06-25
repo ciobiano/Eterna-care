@@ -62,7 +62,10 @@ const CellAction: React.FC<CellActionProps> = ({ data }) => {
 				</DropdownMenuTrigger>
 				<DropdownMenuContent align="end">
 					<DropdownMenuLabel>Actions</DropdownMenuLabel>
-					<DropdownMenuItem onClick={() => setOpen(true)}>
+					<DropdownMenuItem
+						disabled={data.status !== AppointmentStatus.PENDING}
+						onClick={() => setOpen(true)}
+					>
 						<X className="mr-2 h-4 w-4" />
 						Cancel
 					</DropdownMenuItem>

@@ -31,9 +31,10 @@ import {
 } from "@/components/ui/form";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { createAppointment } from "@/actions/appointment";
-import { toast } from "@/components/ui/use-toast";
 import { getLabs } from "@/actions/getLabs";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+
 
 // Define the AppointmentSchema using Zod
 const AppointmentSchema = z.object({
@@ -78,17 +79,11 @@ const AppointmentRequestForm: React.FC<AppointmentRequestFormProps> = ({
 		mutationFn: createAppointment,
 		onSuccess: () => {
 			onSuccess();
-			toast({
-				title: success,
-				description: "✅ Appointment successfully created.",
-			});
+			toast.success("Appointment request sent successfully");
 			router.refresh();
 		},
 		onError: (error: any) => {
-			toast({
-				title: "Error",
-				description: error.message,
-			});
+			toast.error("Failed to send appointment request");
 		},
 	});
 

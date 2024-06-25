@@ -21,7 +21,7 @@ const getStatusClass = (status: AppointmentStatus) => {
 		PENDING: "border-transparent bg-[#FFEFC6] text-yellow-600 font-semibold",
 		CONFIRMED: "border-transparent bg-[#CFFFE5] text-green-600 font-semibold",
 		CANCELLED: "border-transparent bg-[#FFD6D6] text-red-600 font-semibold",
-		SCREENED: "border-transparent bg-[##35A458] text-white font-semibold",
+		SCREENED: "border-transparent bg-[#35A458] text-white font-semibold",
 	};
 	return statusClasses[status] || "border-gray-500";
 };

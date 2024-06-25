@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { updateAppointmentStatus } from "@/actions/updateStatus";
 import { AppointmentColumn } from "./column";
 import { AppointmentStatus } from "@prisma/client";
@@ -7,7 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Check, X } from "lucide-react";
 import { AlertModal } from "@/components/modal/alert-modal";
 import { useRouter } from "next/navigation";
-
+import { sendConfirmationEmail } from "@/actions/email";
+import { toast } from "sonner";
 interface CellActionProps {
 	data: AppointmentColumn;
 }
@@ -23,12 +24,39 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
 
 	const handleUpdateStatus = (status: AppointmentStatus) => {
 		setLoading(true);
-		mutate({
-			appointmentId: data.id,
-			status,
-		});
+		mutate(
+			{
+				appointmentId: data.id,
+				status,
+			},
+			{
+				onSuccess: () => {
+					if (status === AppointmentStatus.CONFIRMED) {
+						sendConfirmationEmail(data.id)
+							.then(() => {
+								toast.success("Confirmation email sent.");
+								
+								setLoading(false);
+								router.refresh();
+							})
+							.catch((error) => {
+								console.error(error);
+								toast.error("Failed to send confirmation email.");
+								setLoading(false);
+							});
+					} else {
+						setLoading(false);
+						router.refresh();
+					}
+				},
+				onError: (error: any) => {
+					console.error(error);
+					toast.error("Failed to update appointment status.");
+					setLoading(false);
+				},
+			}
+		);
 		setOpen(false);
-		router.refresh();
 	};
 
 	return (
@@ -43,15 +71,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
 			<Button
 				disabled={data.status !== AppointmentStatus.PENDING}
 				size={"icon"}
-				onClick={() => {
-					setLoading(true);
-					mutate({
-						appointmentId: data.id,
-						status: AppointmentStatus.CONFIRMED,
-					});
-
-					router.refresh();
-				}}
+				onClick={() => handleUpdateStatus(AppointmentStatus.CONFIRMED)}
 				className="border text-black border-green-300 bg-inherit hover:border-green-600 hover:bg-green-100 hover:text-white"
 			>
 				<Check color="#47cd68" size={16} className="" />
