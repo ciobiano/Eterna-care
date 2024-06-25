@@ -75,3 +75,14 @@ export const ProfileSchema = z.object({
 		"Description should be at most 120 characters"
 	).optional(),
 });
+
+
+
+
+export type MonthlyAppointmentData = {
+	month: string;
+	SCREENED: number;
+	CONFIRMED: number;
+	CANCELLED: number;
+	PENDING: number;
+};

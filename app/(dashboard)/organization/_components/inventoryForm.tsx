@@ -1,5 +1,5 @@
 "use client";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -26,14 +26,15 @@ import { useRouter } from "next/navigation";
 import { useCurrentRole } from "@/hooks/use-current-role";
 import inventoryInput from "@/actions/inventory";
 import { toast } from "sonner";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { PlusCircle } from "lucide-react";
 
 type Input = z.infer<typeof inventorySchema>;
 
-const InventoryForm = ({}) => {
+const InventoryForm = ({ onClose }: { onClose: () => void }) => {
 	const role = useCurrentRole();
 	const router = useRouter();
 	const [isLoading, setIsLoading] = useState<boolean>(false);
-	const [showForm, setShowForm] = useState<boolean>(true);
 	const [error, setError] = useState<string | undefined>("");
 	const [success, setSuccess] = useState<string | undefined>("");
 	const [isPending, startTransition] = useTransition();
@@ -48,7 +49,6 @@ const InventoryForm = ({}) => {
 		},
 	});
 
-
 	async function onSubmit(values: Input) {
 		setIsLoading(true);
 
@@ -60,12 +60,12 @@ const InventoryForm = ({}) => {
 
 					if (data?.error) {
 						setError(data.error);
-						toast.error("Please check your inputs and try again");
+						toast.error(data.error.toString());
 					} else if (data.success) {
 						setSuccess(data.success);
 						toast.success("Inventory submitted successfully");
-						setShowForm(false);
 						setTimeout(() => {
+							onClose();
 							router.refresh();
 						}, 3000); // Redirect after 3 seconds
 					}
@@ -76,7 +76,14 @@ const InventoryForm = ({}) => {
 		});
 	}
 
-	return showForm ? (
+useEffect(() => {
+	if (success) {
+		onClose();
+	}
+}, [success, onClose]);
+
+
+	return  (
 		<Form {...form}>
 			<form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-4">
 				{role === "ORGANIZATION" && (
@@ -169,9 +176,31 @@ const InventoryForm = ({}) => {
 				</Button>
 			</form>
 		</Form>
-	) : (
-		<p>{success}</p>
+	) 
+};
+
+const InventoryDialogTrigger = () => {
+	const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+	const handleDialogClose = () => {
+		setIsDialogOpen(false);
+	};
+
+	return (
+		<Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+			<DialogTrigger asChild>
+				<Button variant="outline" className="h-10 gap-1">
+					<PlusCircle className="h-3.5 w-3.5" />
+					<span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+						Add inventory
+					</span>
+				</Button>
+			</DialogTrigger>
+			<DialogContent>
+				<InventoryForm onClose={handleDialogClose} />
+			</DialogContent>
+		</Dialog>
 	);
 };
 
-export default InventoryForm;
+export default InventoryDialogTrigger;

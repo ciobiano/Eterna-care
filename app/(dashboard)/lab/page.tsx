@@ -17,15 +17,15 @@ const Page = async () => {
 
 	return (
 		<Container>
-			<div className="grid grid-flow-col top-0 gap-0 h-screen  ">
-				<div className="flex flex-col top-0 mt-6 ">
+			<div className="grid grid-flow-col top-0 gap-0 h-screen  mt-4  ">
+				<div className="flex flex-col top-0  ">
 					<LabDashboard />
 				</div>
 				<div className="flex flex-col  bg-[#242424] rounded-3xl  ">
 					<div className="flex  justify-center h-full w-full max-w-52  max-h-[18rem] mx-auto mt-6 rounded-lg">
 						<CalendarBox />
 					</div>
-					<div className="flex items-center  justify-center h-full w-full  mx-auto mt-6 rounded-lg">
+					<div className="flex items-center  justify-center w-full  mx-auto mt-6 rounded-lg">
 						<RequestCard />
 					</div>
 				</div>

@@ -1,13 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PlusCircle } from "lucide-react";
-import React from "react";
 import InventoryForm from "../../_components/inventoryForm";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Card, CardContent } from "@/components/ui/card";
 import InventoryClient from "../../_components/InventoryTable/client";
 import DonorClient from "../../_components/donorTable/client";
 import LaboratoryClient from "../../_components/laboratoryTable/client";
+import InventoryDialogTrigger from "../../_components/inventoryForm";
 
 const InventoryPage = () => {
 	return (
@@ -20,19 +20,7 @@ const InventoryPage = () => {
 						<TabsTrigger value="laboratories">Laboratories</TabsTrigger>
 					</TabsList>
 					<div className="ml-auto flex items-center gap-2">
-						<Dialog>
-							<DialogTrigger asChild>
-								<Button variant="outline" className="h-10 gap-1">
-									<PlusCircle className="h-3.5 w-3.5" />
-									<span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-										Add inventory
-									</span>
-								</Button>
-							</DialogTrigger>
-							<DialogContent>
-								<InventoryForm />
-							</DialogContent>
-						</Dialog>
+						<InventoryDialogTrigger />
 					</div>
 				</div>
 				<div className="mt-8">

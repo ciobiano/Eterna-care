@@ -55,7 +55,7 @@ const config = {
 				},
 				theme: {
 					DEFAULT: "#FBFBFB",
-					foreground: "#F0F0F0",
+					foreground: "#F9F9F9",	
 				},
 			},
 			borderRadius: {

@@ -24,6 +24,8 @@ async function getInventoryTotalByBloodGroup(
 ) {
 	const totals = await getInventoryTotals(organizationId, inventoryType);
 	const totalForGroup = totals.find((group) => group.bloodGroup === bloodGroup);
+
+
 	return totalForGroup?._sum.quantity || 0; // Return 0 if not found
 }
 
@@ -50,10 +52,11 @@ export default async function InventoryInput(
 			include: { organization: true },
 		});
 
-		const organizationId = user?.organization?.id;
-		if (!organizationId) {
-			return { error: "Organization ID is missing in session" };
+		if (!user || !user.organization) {
+			return { error: "User or organization not found." };
 		}
+
+		const organizationId = user?.organization?.id;
 
 		let laboratoryId: string | undefined;
 		let donorId: string | undefined;
@@ -74,7 +77,7 @@ export default async function InventoryInput(
 		if (inventoryType === "OUT") {
 			if (availableQuantity < quantity) {
 				return {
-					error: `Only ${availableQuantity} units of ${bloodGroup} blood available.`,
+					error: ` ${availableQuantity} units of ${bloodGroup} blood available.`,
 				};
 			}
 			const laboratory = await getLaboratory(email);

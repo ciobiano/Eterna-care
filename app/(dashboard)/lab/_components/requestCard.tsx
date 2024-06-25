@@ -43,9 +43,9 @@ const RequestCard = () => {
 			{cardData.map((card, index) => (
 				<div
 					key={index}
-					className="flex items-center py-4  bg-[#585858] backdrop-blur  rounded-2xl max-w-[25rem] w-full  "
+					className="flex items-center py-4  bg-[#585858] backdrop-blur max-h-fit  rounded-2xl max-w-[25rem] w-full  "
 				>
-					<div className="flex items-center justify-center w-12 h-12 rounded-full bg-[#eb9183] mx-4  ">
+					<div className="flex items-center justify-center w-9 h-9 rounded-full bg-[#eb9183] mx-4  ">
 						{card.icon}
 					</div>
 					<div>

@@ -5,7 +5,7 @@ import { DEFAULT_REDIRECT } from "@/routes";
 import { loginSchema } from "@/schema";
 import { AuthError } from "next-auth";
 import { z } from "zod";
-import { currentRole } from '@/lib/auth';
+import { getUserByEmail } from "@/lib/user";
 
 export const login = async (values: z.infer<typeof loginSchema>) => {
 	const validatedFields = loginSchema.safeParse(values);
@@ -22,9 +22,8 @@ export const login = async (values: z.infer<typeof loginSchema>) => {
 
 
 		
-		const role = await currentRole();
-		const Role = role?.toLowerCase(); // Add null check for 'role'
-		console.log(Role)
+		const user =  await getUserByEmail(email);
+		const Role = user?.role.toLowerCase();
 
 		const mainPagePath = Role ? `/${Role}` : '/';
 
