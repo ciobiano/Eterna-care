@@ -14,8 +14,8 @@ import { useState } from "react";
 
 import { AlertModal } from "@/components/modal/alert-modal";
 import { InventoryColumn } from "./InventoryTable/column";
-import { toast } from "@/components/ui/use-toast";
 import deleteInventory from "@/actions/deleteInventory";
+import { toast } from "sonner";
 
 interface CellActionProps {
 	data: InventoryColumn;
@@ -28,22 +28,18 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
 
 	const onCopy = () => {
 		navigator.clipboard.writeText(data.id);
-		toast({
-			title: "Copied to clipboard",
-		});
+		toast("Copied to clipboard");
 	};
 
 	const onDelete = async () => {
 		try {
 			setLoading(true);
 			await deleteInventory({ id: data.id });
-			toast({ title: "Inventory deleted" });
+			toast("Inventory deleted successfully");
 			router.refresh();
 		} catch (error) {
-			toast({
-				title: "Error",
-				description: "Failed to delete inventory",
-			});
+			console.error(error);
+			toast.error("Failed to delete inventory");
 		} finally {
 			setLoading(false);
 			setOpen(false);

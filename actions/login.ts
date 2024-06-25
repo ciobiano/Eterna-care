@@ -19,13 +19,19 @@ export const login = async (values: z.infer<typeof loginSchema>) => {
 	const { email, password } = validatedFields.data;
 
 	try {
+
+
+		
 		const role = await currentRole();
 		const Role = role?.toLowerCase(); // Add null check for 'role'
 		console.log(Role)
+
+		const mainPagePath = Role ? `/${Role}` : '/';
+
 		await signIn("credentials", {
 			email,
 			password,
-			redirectTo: `/${Role}`,
+			redirectTo: mainPagePath,
 		});
 	} catch (error) {
 		if (error instanceof AuthError) {

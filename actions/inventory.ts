@@ -50,7 +50,7 @@ export default async function InventoryInput(
 			include: { organization: true },
 		});
 
-		const organizationId = user?.organization?.userId;
+		const organizationId = user?.organization?.id;
 		if (!organizationId) {
 			return { error: "Organization ID is missing in session" };
 		}

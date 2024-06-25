@@ -21,11 +21,11 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { BLOOD_GROUP_OPTIONS, inventorySchema } from "@/schema";
-import { toast } from "@/components/ui/use-toast";
 import { InventoryType } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useCurrentRole } from "@/hooks/use-current-role";
 import inventoryInput from "@/actions/inventory";
+import { toast } from "sonner";
 
 type Input = z.infer<typeof inventorySchema>;
 
@@ -60,16 +60,10 @@ const InventoryForm = ({}) => {
 
 					if (data?.error) {
 						setError(data.error);
-						toast({
-							title: error,
-							description: "Please try again with correct credentials",
-						});
+						toast.error("Please check your inputs and try again");
 					} else if (data.success) {
 						setSuccess(data.success);
-						toast({
-							title: "You will be redirected shortly 🎉",
-							description: success,
-						});
+						toast.success("Inventory submitted successfully");
 						setShowForm(false);
 						setTimeout(() => {
 							router.refresh();
