@@ -44,7 +44,7 @@ const cardData = [
 
 const DonorDashboard = async () => {
 	const data = await currentUser();
-	console.log(data);
+
 
 
 	return (
