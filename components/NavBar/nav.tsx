@@ -1,7 +1,6 @@
 import Link from "next/link";
 import React from "react";
 import Logo from "../Logo";
-import SearchBox from "./searchBox";
 import MainNav from "./mainNav";
 
 const NavBar = () => {
