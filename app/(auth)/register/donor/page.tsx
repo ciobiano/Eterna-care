@@ -25,8 +25,7 @@ import {
 import { donorSchema } from "@/schema";
 import { useState, useTransition } from "react";
 import { registerDonor } from "@/actions/register";
-import { toast } from "@/components/ui/use-toast";
-
+import { toast } from "sonner";
 type Input = z.infer<typeof donorSchema>;
 
 const DonorRegistrationForm = () => {
@@ -55,15 +54,11 @@ const DonorRegistrationForm = () => {
 				setSuccess(data?.success);
 
 				if (data?.error) {
-					toast({
-						title: error,
-						description: "Please try again with correct credentials",
-					});
+					toast.error("please check your credentials and try again");
 				} else if (data?.success) {
-					toast({
-						title: success,
-						description: "you will be redirected to the dashboard shortly",
-					});
+					toast.success(
+						" registration successful, you will be redirected to your dashboard shortly"
+					);
 				}
 			});
 		});

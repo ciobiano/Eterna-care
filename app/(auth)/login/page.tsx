@@ -16,8 +16,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { login } from "@/actions/login";
 import { Button } from "@/components/ui/button";
-import { toast } from "@/components/ui/use-toast";
 import Link from "next/link";
+import { toast } from "sonner";
 
 type Input = z.infer<typeof loginSchema>;
 
@@ -44,15 +44,9 @@ const LoginPage = () => {
 				setSuccess(data?.success);
 
 				if (data?.error) {
-					toast({
-						title: error,
-						description: "Please try again with correct credentials",
-					});
+					toast.error('please check your credentials and try again')
 				} else if (data?.success) {
-					toast({
-						title: success,
-						description: "you will be redirected to the dashboard shortly",
-					});
+					toast.success(' login successful, you will be red')
 				}
 			});
 		});

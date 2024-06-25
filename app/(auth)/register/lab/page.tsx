@@ -14,9 +14,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { laboratorySchema } from "@/schema";
-import { toast } from "@/components/ui/use-toast";
 import { registerLaboratory } from "@/actions/register";
 import { useState, useTransition } from "react";
+import { toast } from "sonner";
 
 type Input = z.infer<typeof laboratorySchema>;
 
@@ -49,15 +49,11 @@ const LaboratoryRegForm = () => {
 				setSuccess(data?.success);
 
 				if (data?.error) {
-					toast({
-						title: error,
-						description: "Please try again with correct credentials",
-					});
+					toast.error("please check your credentials and try again");
 				} else if (data?.success) {
-					toast({
-						title: success,
-						description: "you will be redirected to the dashboard shortly",
-					});
+					toast.success(
+						" registration successful, you will be redirected to your dashboard shortly"
+					);
 				}
 			});
 		});

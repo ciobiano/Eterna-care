@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
-import { Toaster } from "@/components/ui/toaster";
+
+import { Toaster } from "sonner";
 import TanstackProvider from "@/provider/tanstackProvider";
 
 const Mont = Montserrat({ subsets: ["latin"] });
@@ -22,7 +23,7 @@ export default function RootLayout({
 				<TanstackProvider>
 					<div>
 						{children}
-						<Toaster />
+						<Toaster richColors />
 					</div>
 				</TanstackProvider>
 			</body>
