@@ -18,7 +18,7 @@
 
 ## Introduction
 
-Eterna Care Medical Institute is a Blood Bank web application designed to manage and schedule appointments for blood donors . This application helps streamline the process of booking appointments at various laboratories and provides an efficient interface for both donors and administrators.
+Eterna Care Medical Institute is a Blood Bank web application designed to manage blood inventory with integration of a schedule appointment system for blood donors . This application helps ease the struggle in proper inventory management.
 
 ## Features
 
